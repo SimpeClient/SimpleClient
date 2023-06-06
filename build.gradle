@@ -9,21 +9,17 @@ repositories {
 }
 
 dependencies {
-    // Minecraft and Fabric Dependencies
+    // Minecraft
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
-    // Fabric API
+    // Dependencies
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
 processResources {
-    //inputs.property 'version', project.version
     filesMatching('fabric.mod.json') {
-        expand 'version': version
-        expand 'minecraft_version': project.minecraft_version
-        expand 'fabric_loader_version': project.fabric_loader_version
-        expand 'fabric_api_version': project.fabric_api_version
+        expand 'version': version, 'minecraft_version': project.minecraft_version, 'fabric_loader_version': project.fabric_loader_version, 'fabric_api_version': project.fabric_api_version
 	}
 }
 

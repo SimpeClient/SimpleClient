@@ -1,4 +1,4 @@
-package de.simpleclient.feature;
+package simpleclient.feature;
 
 public class FeatureManager {
 }

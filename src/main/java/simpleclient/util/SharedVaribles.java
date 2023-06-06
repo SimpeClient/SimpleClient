@@ -1,6 +1,4 @@
-package de.simpleclient.util;
-
-import java.awt.*;
+package simpleclient.util;
 
 public class SharedVaribles {
     public static boolean hud_enabled = true;
