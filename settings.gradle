@@ -6,3 +6,5 @@ pluginManagement {
     }
 }
 rootProject.name = 'simpleclient'
+include 'simpleclient-core'
+include 'simpleclient-1.19.4'

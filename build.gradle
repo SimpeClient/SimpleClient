@@ -1,28 +1,19 @@
 plugins {
-    id 'fabric-loom' version '1.2-SNAPSHOT'
 }
 
 version = project.simpleclient_version
-group = "simpleclient"
+group = 'simpleclient'
 
 repositories {
 }
 
 dependencies {
-    // Minecraft
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
-    // Dependencies
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
-processResources {
-    filesMatching('fabric.mod.json') {
-        expand 'version': version, 'minecraft_version': project.minecraft_version, 'fabric_loader_version': project.fabric_loader_version, 'fabric_api_version': project.fabric_api_version
-	}
+subprojects {
 }
 
-tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+allprojects {
+    version = rootProject.version
+    group = rootProject.group
 }
