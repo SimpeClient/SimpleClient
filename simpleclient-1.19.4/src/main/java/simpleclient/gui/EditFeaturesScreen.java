@@ -46,7 +46,7 @@ public class EditFeaturesScreen extends Screen {
         fill(poseStack, 0, 0, width / 4, height, 0x77000000);
         List<EnableableFeature> enableableFeatures = FeatureManager.INSTANCE.getEnableableFeatures();
         for (int i = 0; i < enableableFeatures.size(); i++) {
-            EnableableFeature mod = enableableFeatures.get(i);
+            EnableableFeature feature = enableableFeatures.get(i);
             int x = i % 3;
             int y = i / 3;
             int wSize = (width / 4 - 8) / 3;
@@ -55,19 +55,19 @@ public class EditFeaturesScreen extends Screen {
             int wX2 = (2 + wSize) * x + wSize;
             int wY2 = 2 + (2 + wSize) * y + wSize;
             fill(poseStack, wX1, scroll + wY1, wX2, scroll + wY2, 0xff555555);
-            fill(poseStack, wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2, wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10, mod.isEnabled() ? 0xff00ff00 : 0xffff0000);
-            if (mod.isEnabled()) {
+            fill(poseStack, wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2, wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10, feature.isEnabled() ? 0xff00ff00 : 0xffff0000);
+            if (feature.isEnabled()) {
                 fill(poseStack, wX1 + wSize / 10 + wSize / 3 / 2 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
             } else {
                 fill(poseStack, wX1 + wSize / 10 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 / 2 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
             }
             poseStack.pushPose();
-            float scaleX = (((float) wSize) * 0.8F) / textRenderer.getWidth(mod.getName().split(" - ")[0]);
+            float scaleX = (((float) wSize) * 0.8F) / textRenderer.getWidth(feature.getName().split(" - ")[0]);
             float scaleY = (((float) wSize) * 0.3F) / textRenderer.getHeight();
             float scale = Math.min(scaleX, scaleY);
             poseStack.scale(scale, scale, scale);
             int yOffset = 0;
-            for (String str : mod.getName().split(" - ")) {
+            for (String str : feature.getName().split(" - ")) {
                 textRenderer.render(Text.literal(str), (int) ((wX1 + (wSize - textRenderer.getWidth(str) * scale) / 2) / scale), (int) ((scroll + wY1 + wSize * 0.1F + yOffset) / scale), 0xffffff);
                 yOffset += textRenderer.getHeight();
             }
@@ -100,7 +100,7 @@ public class EditFeaturesScreen extends Screen {
         if (active == null) {
             List<EnableableFeature> enableableFeatures = FeatureManager.INSTANCE.getEnableableFeatures();
             for (int i = 0; i < enableableFeatures.size(); i++) {
-                EnableableFeature mod = enableableFeatures.get(i);
+                EnableableFeature feature = enableableFeatures.get(i);
                 int x = i % 3;
                 int y = i / 3;
                 int wSize = (width / 4 - 8) / 3;
@@ -110,7 +110,7 @@ public class EditFeaturesScreen extends Screen {
                 int wY2 = 2 + (2 + wSize) * y + wSize;
                 if (wX1 <= mouseX && mouseX <= wX2 &&
                     wY1 + scroll <= mouseY && mouseY <= wY2 + scroll) {
-                    mod.setEnabled(!mod.isEnabled());
+                    feature.setEnabled(!feature.isEnabled());
                 }
             }
         } else active = null;
@@ -118,8 +118,8 @@ public class EditFeaturesScreen extends Screen {
     }
 
     private DraggableFeature getFeature(TextRendererAdapter textRenderer, ItemRendererAdapter itemRenderer, double mouseX, double mouseY) {
-        for (Feature mod : FeatureManager.INSTANCE.getFeatures()) {
-            if (mod instanceof DraggableFeature df && df.isEnabled()) {
+        for (Feature feature : FeatureManager.INSTANCE.getFeatures()) {
+            if (feature instanceof DraggableFeature df && df.isEnabled()) {
                 int x1 = df.getXPos(width) - 1;
                 int y1 = df.getYPos(height) - 1;
                 int x2 = df.getXPos(width) + df.getWidth(textRenderer, itemRenderer, width, height) + 1;

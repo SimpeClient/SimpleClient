@@ -14,8 +14,8 @@ import simpleclient.adapter.TextRendererAdapterImpl;
 import simpleclient.gui.EditFeaturesScreen;
 
 public class FeatureManagerImpl extends FeatureManager {
-    public FeatureManagerImpl() {
-        super();
+    @Override
+    public void init() {
         Minecraft mc = Minecraft.getInstance();
         KeyMapping editFeaturesKey = KeyBindingHelper.registerKeyBinding(new KeyMapping("simpleclient.edit_features", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT, "key.categories.simpleclient"));
         ClientTickEvents.END_CLIENT_TICK.register(c -> {
@@ -23,11 +23,8 @@ public class FeatureManagerImpl extends FeatureManager {
                 mc.setScreen(new EditFeaturesScreen());
             }
         });
-    }
-
-    @Override
-    public void init() {
         addFeature(new FPS());
+        addFeature(new Motionblur());
         super.init();
     }
 }
