@@ -7,17 +7,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FeatureManager {
-    public static final List<Feature> FEATURES = new ArrayList<>();
-    public static JsonFile JSON = new JsonFile("mods.json");
+    public static FeatureManager INSTANCE = null;
+    private final List<Feature> features = new ArrayList<>();
+    private final JsonFile json = new JsonFile("features.json");
 
-    public static void init() {
-        String features = "Features:";
-        String missingFeatures = "Missing Features:";
+    public FeatureManager() {
+        json.load();
+    }
+
+    public void init() {
+        SimpleClient.LOGGER.info("Features:");
         for (FeatureType type : FeatureType.values()) {
-            boolean missing = FEATURES.stream().filter(f -> f.getType() == type).findAny().isEmpty();
-            if (missing) missingFeatures += "\n- " + type.getName();
-            else features += "\n- " + type.getName();
+            if (!this.features.stream().filter(f -> f.getType() == type).findAny().isPresent()) {
+                SimpleClient.LOGGER.info("- " + type.getName());
+            }
         }
-        SimpleClient.LOGGER.info(features + missingFeatures);
+        SimpleClient.LOGGER.info("Missing Features:");
+        for (FeatureType type : FeatureType.values()) {
+            if (!this.features.stream().filter(f -> f.getType() == type).findAny().isEmpty()) {
+                SimpleClient.LOGGER.info("- " + type.getName());
+            }
+        }
+    }
+
+    public void addFeature(Feature feature) {
+        features.add(feature);
+    }
+
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    public List<EnableableFeature> getEnableableFeatures() {
+        List<EnableableFeature> enableableFeatures = new ArrayList<>();
+        features.forEach(f -> {if (f instanceof EnableableFeature ef) enableableFeatures.add(ef);});
+        return enableableFeatures;
+    }
+
+    public JsonFile getJson() {
+        return json;
     }
 }

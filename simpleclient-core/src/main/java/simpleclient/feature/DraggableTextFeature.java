@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import simpleclient.adapter.ItemRendererAdapter;
 import simpleclient.adapter.TextRendererAdapter;
+import simpleclient.text.LiteralText;
 import simpleclient.text.Style;
 import simpleclient.text.Text;
 
@@ -105,16 +106,32 @@ public class DraggableTextFeature extends DraggableFeature {
     }
 
     public JsonArray getFormat() {
-        JsonObject json = FeatureManager.JSON.getJson();
+        JsonObject json = FeatureManager.INSTANCE.getJson().getJson();
         if (!json.has(getId())) json.add(getId(), new JsonObject());
         if (!json.get(getId()).getAsJsonObject().has("format")) json.get(getId()).getAsJsonObject().add("format", getDefaultFormat());
         return json.get(getId()).getAsJsonObject().get("format").getAsJsonArray();
     }
 
     public void setFormat(JsonArray format) {
-        JsonObject json = FeatureManager.JSON.getJson();
+        JsonObject json = FeatureManager.INSTANCE.getJson().getJson();
         if (!json.has(getId())) json.add(getId(), new JsonObject());
         if (json.get(getId()).getAsJsonObject().has("format")) json.get(getId()).getAsJsonObject().remove("format");
         json.get(getId()).getAsJsonObject().add("format", format);
+    }
+
+    protected JsonObject text(String text, Style style) {
+        JsonObject json = new JsonObject();
+        json.addProperty("type", "text");
+        json.addProperty("value", text);
+        json.add("style", style.serializeJson());
+        return json;
+    }
+
+    protected JsonObject parameter(String name, Style style) {
+        JsonObject json = new JsonObject();
+        json.addProperty("type", "parameter");
+        json.addProperty("value", name);
+        json.add("style", style.serializeJson());
+        return json;
     }
 }

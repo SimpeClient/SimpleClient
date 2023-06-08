@@ -28,7 +28,7 @@ public class DraggableFeature extends RenderableFeature {
     }
 
     public double getX() {
-        JsonFile json = FeatureManager.JSON;
+        JsonFile json = FeatureManager.INSTANCE.getJson();
         if (!json.has(getId())) json.set(getId(), new JsonObject());
         if (!json.get(getId()).getAsJsonObject().has("x")) json.get(getId()).getAsJsonObject().addProperty("x", getDefaultX());
         return json.get(getId()).getAsJsonObject().get("x").getAsDouble();
@@ -39,7 +39,7 @@ public class DraggableFeature extends RenderableFeature {
     }
 
     public void setX(double x) {
-        JsonObject json = FeatureManager.JSON.getJson();
+        JsonObject json = FeatureManager.INSTANCE.getJson().getJson();
         if (!json.has(getId())) json.add(getId(), new JsonObject());
         json.get(getId()).getAsJsonObject().addProperty("x", x);
     }
@@ -49,7 +49,7 @@ public class DraggableFeature extends RenderableFeature {
     }
 
     public double getY() {
-        JsonFile json = FeatureManager.JSON;
+        JsonFile json = FeatureManager.INSTANCE.getJson();
         if (!json.has(getId())) json.set(getId(), new JsonObject());
         if (!json.get(getId()).getAsJsonObject().has("y")) json.get(getId()).getAsJsonObject().addProperty("y", getDefaultY());
         return json.get(getId()).getAsJsonObject().get("y").getAsDouble();
@@ -60,7 +60,7 @@ public class DraggableFeature extends RenderableFeature {
     }
 
     public void setY(double y) {
-        JsonFile json = FeatureManager.JSON;
+        JsonFile json = FeatureManager.INSTANCE.getJson();
         if (!json.has(getId())) json.set(getId(), new JsonObject());
         json.get(getId()).getAsJsonObject().addProperty("y", y);
     }

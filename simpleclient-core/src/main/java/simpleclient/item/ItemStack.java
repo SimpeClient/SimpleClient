@@ -1,6 +1,6 @@
 package simpleclient.item;
 
-import de.mrstupsi.stupsimod.text.Text;
+import simpleclient.text.Text;
 
 public class ItemStack {
     private Item item;

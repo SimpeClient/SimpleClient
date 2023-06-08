@@ -15,7 +15,7 @@ public class JsonFile {
     private JsonObject json;
 
     public JsonFile(String name) {
-        this(new File(new File(FabricLoader.getInstance().getGameDir().toFile(), "SimpleClient"), name));
+        this(new File(new File(FabricLoader.getInstance().getGameDir().toFile(), "SimpleClient"), name).getAbsoluteFile());
     }
 
     public JsonFile(File file) {

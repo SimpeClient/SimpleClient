@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import simpleclient.item.ItemStack;
 
 public class ItemRendererAdapterImpl extends ItemRendererAdapter {
-    private PoseStack poseStack;
+    private final PoseStack poseStack;
 
     public ItemRendererAdapterImpl(PoseStack poseStack) {
         this.poseStack = poseStack;
