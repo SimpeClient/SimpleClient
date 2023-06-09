@@ -28,10 +28,9 @@ public class DraggableFeature extends RenderableFeature {
     }
 
     public double getX() {
-        JsonFile json = FeatureManager.INSTANCE.getJson();
-        if (!json.has(getId())) json.set(getId(), new JsonObject());
-        if (!json.get(getId()).getAsJsonObject().has("x")) json.get(getId()).getAsJsonObject().addProperty("x", getDefaultX());
-        return json.get(getId()).getAsJsonObject().get("x").getAsDouble();
+        JsonObject data = getData();
+       if (!data.has("x")) data.addProperty("x", getDefaultX());
+        return data.get("x").getAsDouble();
     }
 
     public int getXPos(double width) {
@@ -39,9 +38,9 @@ public class DraggableFeature extends RenderableFeature {
     }
 
     public void setX(double x) {
-        JsonObject json = FeatureManager.INSTANCE.getJson().getJson();
-        if (!json.has(getId())) json.add(getId(), new JsonObject());
-        json.get(getId()).getAsJsonObject().addProperty("x", x);
+        JsonObject data = getData();
+        data.addProperty("x", x);
+        setData(data);
     }
 
     public void setXPos(int x, double width) {
@@ -49,10 +48,9 @@ public class DraggableFeature extends RenderableFeature {
     }
 
     public double getY() {
-        JsonFile json = FeatureManager.INSTANCE.getJson();
-        if (!json.has(getId())) json.set(getId(), new JsonObject());
-        if (!json.get(getId()).getAsJsonObject().has("y")) json.get(getId()).getAsJsonObject().addProperty("y", getDefaultY());
-        return json.get(getId()).getAsJsonObject().get("y").getAsDouble();
+        JsonObject data = getData();
+        if (!data.has("y")) data.addProperty("y", getDefaultY());
+        return data.get("y").getAsDouble();
     }
 
     public int getYPos(double height) {
@@ -60,9 +58,9 @@ public class DraggableFeature extends RenderableFeature {
     }
 
     public void setY(double y) {
-        JsonFile json = FeatureManager.INSTANCE.getJson();
-        if (!json.has(getId())) json.set(getId(), new JsonObject());
-        json.get(getId()).getAsJsonObject().addProperty("y", y);
+        JsonObject data = getData();
+        data.addProperty("y", y);
+        setData(data);
     }
 
     public void setYPos(int y, double height) {

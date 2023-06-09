@@ -106,17 +106,15 @@ public class DraggableTextFeature extends DraggableFeature {
     }
 
     public JsonArray getFormat() {
-        JsonObject json = FeatureManager.INSTANCE.getJson().getJson();
-        if (!json.has(getId())) json.add(getId(), new JsonObject());
-        if (!json.get(getId()).getAsJsonObject().has("format")) json.get(getId()).getAsJsonObject().add("format", getDefaultFormat());
-        return json.get(getId()).getAsJsonObject().get("format").getAsJsonArray();
+        JsonObject data = getData();
+        if (!data.has("format")) data.add("format", getDefaultFormat());
+        return data.get("format").getAsJsonArray();
     }
 
     public void setFormat(JsonArray format) {
-        JsonObject json = FeatureManager.INSTANCE.getJson().getJson();
-        if (!json.has(getId())) json.add(getId(), new JsonObject());
-        if (json.get(getId()).getAsJsonObject().has("format")) json.get(getId()).getAsJsonObject().remove("format");
-        json.get(getId()).getAsJsonObject().add("format", format);
+        JsonObject data = getData();
+        data.add("format", format);
+        setData(data);
     }
 
     protected JsonObject text(String text, Style style) {
