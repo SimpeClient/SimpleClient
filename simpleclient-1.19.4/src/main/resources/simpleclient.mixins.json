@@ -7,7 +7,7 @@
   ],
   "client": [
     "GuiMixin",
-    "performance.CubeMixin",
+    "performance.LevelRendererMixin",
     "performance.SharedConstantsMixin"
   ],
   "injectors": {
