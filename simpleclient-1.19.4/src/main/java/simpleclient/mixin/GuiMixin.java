@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,18 +21,21 @@ import simpleclient.feature.RenderableFeature;
 import simpleclient.gui.EditFeaturesScreen;
 
 @Mixin(Gui.class)
-public abstract class InGameHudMixin {
+public abstract class GuiMixin {
+    @Shadow @Final private Minecraft minecraft;
+
+    @Shadow public abstract Font getFont();
+
     @Inject(at = @At("TAIL"), method = "render")
-    private void renderHud(PoseStack poseStack, float tickDelta, CallbackInfo ci) {
-        Minecraft mc = Minecraft.getInstance();
-        TextRendererAdapter textRenderer = new TextRendererAdapterImpl(poseStack, mc.font);
+    private void render(PoseStack poseStack, float tickDelta, CallbackInfo ci) {
+        TextRendererAdapter textRenderer = new TextRendererAdapterImpl(poseStack, getFont());
         ItemRendererAdapter itemRenderer = new ItemRendererAdapterImpl(poseStack);
         // Watermark
-        mc.font.drawShadow(poseStack, "SimpleClient " + SimpleClient.VERSION, mc.getWindow().getGuiScaledWidth() - mc.font.width("SimpleClient " + SimpleClient.VERSION) - 1, 1, 0xFFAAAAAA);
+        getFont().drawShadow(poseStack, "SimpleClient " + SimpleClient.VERSION, minecraft.getWindow().getGuiScaledWidth() - getFont().width("SimpleClient " + SimpleClient.VERSION) - 1, 1, 0xFFAAAAAA);
         // Features
-        if (!(mc.screen instanceof EditFeaturesScreen)) {
-            int width = mc.getWindow().getGuiScaledWidth();
-            int height = mc.getWindow().getGuiScaledHeight();
+        if (!(minecraft.screen instanceof EditFeaturesScreen)) {
+            int width = minecraft.getWindow().getGuiScaledWidth();
+            int height = minecraft.getWindow().getGuiScaledHeight();
             for (Feature feature : FeatureManager.INSTANCE.getFeatures()) {
                 if (feature instanceof RenderableFeature rf && rf.isEnabled()) {
                     rf.render(textRenderer, itemRenderer, width, height);

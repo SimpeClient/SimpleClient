@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleclient",
+  "version": "${version}",
+  "name": "SimpleClient",
+  "description": "SimpleClient is a simple Minecraft Client",
+  "authors": [
+    "Fabi.exe",
+    "Noriskky"
+  ],
+  "contact": {
+    "homepage": "https://simpleclient.github.io",
+    "sources": "https://github.com/SimpeClient"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": ["simpleclient.SimpleClient"],
+    "preLaunch": ["simpleclient.SimpleClientPreLaunch"]
+  },
+  "mixins": [
+    "simpleclient.mixins.json"
+  ],
+  "depends": {
+    "java": ">=17",
+    "minecraft": "~${minecraft_version}",
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": ">=${fabric_api_version}"
+  },
+  "suggests": {
+  }
+}

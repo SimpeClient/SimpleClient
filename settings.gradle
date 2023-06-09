@@ -8,3 +8,4 @@ pluginManagement {
 rootProject.name = 'simpleclient'
 include 'simpleclient-core'
 include 'simpleclient-1.19.4'
+include 'simpleclient-1.20'
