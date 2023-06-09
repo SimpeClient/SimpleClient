@@ -20,6 +20,7 @@ import simpleclient.math.VertexUtils;
 public class CubeMixin {
     @Shadow @Final private ModelPart.Polygon[] polygons;
 
+    // +5 FPS with many Entities
     @Inject(at = @At("HEAD"), method = "compile", cancellable = true)
     public void compile(PoseStack.Pose pose, VertexConsumer vertexConsumer, int light, int overlay, float r, float g, float b, float a, CallbackInfo ci) {
         if (PerformanceBoost.INSTANCE.isEnabled()) ci.cancel();
