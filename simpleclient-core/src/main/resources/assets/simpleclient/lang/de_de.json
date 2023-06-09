@@ -1,4 +1,7 @@
 {
   "key.categories.simpleclient": "SimpleClient",
-  "simpleclient.edit_features": "Features bearbeiten"
+  "simpleclient.edit_features": "Features bearbeiten",
+  "simpleclient.edit_feature_config": "Featurekonfiguration bearbeiten",
+  "simpleclient.edit_config_of": "Konfiguration von %s bearbeiten",
+  "simpleclient.motionblur.strength": "Motionblur Stärke"
 }

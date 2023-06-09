@@ -1,22 +1,24 @@
 package simpleclient.feature;
 
-import com.google.gson.JsonObject;
 import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import simpleclient.feature.config.PercentConfigEntry;
 
 public class Motionblur extends EnableableFeature {
     private final ManagedShaderEffect shader = ShaderEffectManager.getInstance().manage(new ResourceLocation("simpleclient", "shaders/post/motionblur.json"), shader -> {});
+    private final PercentConfigEntry strength = new PercentConfigEntry("strength", Component.translatable("simpleclient.motionblur.strength"), 0.25F, 0);
 
     public Motionblur() {
         super(FeatureType.MOTIONBLUR);
+        addConfigEntry(strength);
         ShaderEffectRenderCallback.EVENT.register(tickDelta -> {
             if (isEnabled()) {
-                JsonObject data = getData();
-                if (!data.has("strength")) data.addProperty("strength", 0.2F);
-                float strength = log(Math.pow(100.0F, 0.01F), data.get("strength").getAsFloat() * 100) / 100;
-                shader.setUniformValue("strength", strength);
+                float strengthValue = log(Math.pow(100.0F, 0.01F), getConfigValue(strength) * 100) / 100;
+                shader.setUniformValue("strength", Math.max(0, Math.min(strengthValue, 1)));
                 shader.render(tickDelta);
             }
         });
