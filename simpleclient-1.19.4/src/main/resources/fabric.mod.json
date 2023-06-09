@@ -16,9 +16,8 @@
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "simpleclient.SimpleClient"
-    ]
+    "client": ["simpleclient.SimpleClient"],
+    "preLaunch": ["simpleclient.SimpleClientPreLaunch"]
   },
   "mixins": [
     "simpleclient.mixins.json"

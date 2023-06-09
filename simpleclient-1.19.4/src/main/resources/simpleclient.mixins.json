@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "InGameHudMixin"
+    "InGameHudMixin",
+    "performance.CubeMixin",
+    "performance.SharedConstantsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
