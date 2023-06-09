@@ -16,11 +16,10 @@ import simpleclient.gui.EditFeaturesScreen;
 public class FeatureManagerImpl extends FeatureManager {
     @Override
     public void init() {
-        Minecraft mc = Minecraft.getInstance();
         KeyMapping editFeaturesKey = KeyBindingHelper.registerKeyBinding(new KeyMapping("simpleclient.edit_features", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT, "key.categories.simpleclient"));
-        ClientTickEvents.END_CLIENT_TICK.register(c -> {
-            if (editFeaturesKey.consumeClick() && mc.screen == null && mc.level != null) {
-                mc.setScreen(new EditFeaturesScreen());
+        ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
+            if (editFeaturesKey.consumeClick() && minecraft.screen == null && minecraft.level != null) {
+                minecraft.setScreen(new EditFeaturesScreen());
             }
         });
         addFeature(new FPS());

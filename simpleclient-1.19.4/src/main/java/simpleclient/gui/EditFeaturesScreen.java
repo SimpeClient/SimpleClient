@@ -1,8 +1,17 @@
 package simpleclient.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import org.joml.AxisAngle4d;
+import org.joml.AxisAngle4f;
+import org.joml.Quaternionf;
 import simpleclient.adapter.ItemRendererAdapter;
 import simpleclient.adapter.ItemRendererAdapterImpl;
 import simpleclient.adapter.TextRendererAdapter;
@@ -10,6 +19,7 @@ import simpleclient.adapter.TextRendererAdapterImpl;
 import simpleclient.feature.*;
 import simpleclient.text.Text;
 
+import java.io.IOException;
 import java.util.List;
 
 public class EditFeaturesScreen extends Screen {
@@ -26,7 +36,7 @@ public class EditFeaturesScreen extends Screen {
     public void render(PoseStack poseStack, int mouseX, int mouseY, float delta) {
         TextRendererAdapter textRenderer = new TextRendererAdapterImpl(poseStack, font);
         ItemRendererAdapter itemRenderer = new ItemRendererAdapterImpl(poseStack);
-        // Render Features
+        // Render Renderable Features
         for (Feature feature : FeatureManager.INSTANCE.getFeatures()) {
             if (feature instanceof RenderableFeature rf && rf.isEnabled()) {
                 rf.renderDummy(textRenderer, itemRenderer, width, height);
@@ -35,32 +45,54 @@ public class EditFeaturesScreen extends Screen {
                     int y1 = df.getYPos(height) - 1;
                     int x2 = df.getXPos(width) + df.getWidth(textRenderer, itemRenderer, width, height) + 1;
                     int y2 = df.getYPos(height) + df.getHeight(textRenderer, itemRenderer, width, height) + 1;
-                    fill(poseStack, x1 - 1, y1 - 1, x2 + 1, y1, 0xFFAAAAAA);
-                    fill(poseStack, x1 - 1, y2, x2 + 1, y2 + 1, 0xFFAAAAAA);
-                    fill(poseStack, x1 - 1, y1 - 1, x1, y2 + 1, 0xFFAAAAAA);
-                    fill(poseStack, x2, y1 - 1, x2 + 1, y2 + 1, 0xFFAAAAAA);
+                    GuiComponent.fill(poseStack, x1 - 1, y1 - 1, x2 + 1, y1, 0xFFAAAAAA);
+                    GuiComponent.fill(poseStack, x1 - 1, y2, x2 + 1, y2 + 1, 0xFFAAAAAA);
+                    GuiComponent.fill(poseStack, x1 - 1, y1 - 1, x1, y2 + 1, 0xFFAAAAAA);
+                    GuiComponent.fill(poseStack, x2, y1 - 1, x2 + 1, y2 + 1, 0xFFAAAAAA);
                 }
             }
         }
-        // Render Buttons
-        fill(poseStack, 0, 0, width / 4, height, 0x77000000);
-        List<EnableableFeature> enableableFeatures = FeatureManager.INSTANCE.getEnableableFeatures();
-        for (int i = 0; i < enableableFeatures.size(); i++) {
-            EnableableFeature feature = enableableFeatures.get(i);
-            int x = i % 3;
-            int y = i / 3;
-            int wSize = (width / 4 - 8) / 3;
+        // Render Enableable Features
+        GuiComponent.fill(poseStack, 0, 0, width / 4, height, 0x77000000);
+        List<Feature> features = FeatureManager.INSTANCE.getFeatures();
+        for (int i = 0; i < features.size(); i++) {
+            Feature feature = features.get(i);
+            int count = (int) Math.ceil((double) width / 4 / 100);
+            int x = i % count;
+            int y = i / count;
+            int wSize = (width / 4 - 2 - count * 2) / count;
             int wX1 = 2 + (2 + wSize) * x;
             int wY1 = 2 + 2 + (2 + wSize) * y;
             int wX2 = (2 + wSize) * x + wSize;
             int wY2 = 2 + (2 + wSize) * y + wSize;
-            fill(poseStack, wX1, scroll + wY1, wX2, scroll + wY2, 0xff555555);
-            fill(poseStack, wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2, wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10, feature.isEnabled() ? 0xff00ff00 : 0xffff0000);
-            if (feature.isEnabled()) {
-                fill(poseStack, wX1 + wSize / 10 + wSize / 3 / 2 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
-            } else {
-                fill(poseStack, wX1 + wSize / 10 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 / 2 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
+            // Background
+            GuiComponent.fill(poseStack, wX1, scroll + wY1, wX2, scroll + wY2, 0xff555555);
+            // Enable Button
+            if (feature instanceof EnableableFeature ef) {
+                GuiComponent.fill(poseStack, wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2, wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10, ef.isEnabled() ? 0xff00ff00 : 0xffff0000);
+                if (ef.isEnabled()) {
+                    GuiComponent.fill(poseStack, wX1 + wSize / 10 + wSize / 3 / 2 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
+                } else {
+                    GuiComponent.fill(poseStack, wX1 + wSize / 10 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 / 2 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
+                }
             }
+            // Config Button
+            if (feature.hasConfig()) {
+                poseStack.pushPose();
+                int h = wSize / 3 / 2;
+                int cogwheelX = wX1 + wSize / 10 * 4 + wSize / 3;
+                int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
+                if (cogwheelX <= mouseX && mouseX <= cogwheelX + h &&
+                        cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
+                    poseStack.rotateAround(Axis.ZP.rotation((float) (System.currentTimeMillis() % 4000) / 400), cogwheelX + h / 2, cogwheelY + h / 2, 0.0F);
+                }
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.setShaderTexture(0, new ResourceLocation("simpleclient", "textures/settings.png"));
+                GuiComponent.blit(poseStack, cogwheelX, cogwheelY, 0, 0, h, h, h, h);
+                poseStack.popPose();
+            }
+            // Name
             poseStack.pushPose();
             float scaleX = (((float) wSize) * 0.8F) / textRenderer.getWidth(feature.getName().split(" - ")[0]);
             float scaleY = (((float) wSize) * 0.3F) / textRenderer.getHeight();
@@ -98,19 +130,28 @@ public class EditFeaturesScreen extends Screen {
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         if (active == null) {
-            List<EnableableFeature> enableableFeatures = FeatureManager.INSTANCE.getEnableableFeatures();
-            for (int i = 0; i < enableableFeatures.size(); i++) {
-                EnableableFeature feature = enableableFeatures.get(i);
-                int x = i % 3;
-                int y = i / 3;
-                int wSize = (width / 4 - 8) / 3;
+            List<Feature> features = FeatureManager.INSTANCE.getFeatures();
+            for (int i = 0; i < features.size(); i++) {
+                Feature feature = features.get(i);
+                int count = (int) Math.ceil((double) width / 4 / 100);
+                int x = i % count;
+                int y = i / count;
+                int wSize = (width / 4 - 2 - count * 2) / count;
                 int wX1 = 2 + (2 + wSize) * x;
                 int wY1 = 2 + 2 + (2 + wSize) * y;
                 int wX2 = (2 + wSize) * x + wSize;
                 int wY2 = 2 + (2 + wSize) * y + wSize;
-                if (wX1 <= mouseX && mouseX <= wX2 &&
+                int h = wSize / 3 / 2;
+                int cogwheelX = wX1 + wSize / 10 * 4 + wSize / 3;
+                int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
+                if (feature.hasConfig() &&
+                    cogwheelX <= mouseX && mouseX <= cogwheelX + h &&
+                    cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
+                    minecraft.setScreen(new EditFeatureConfigScreen(feature, this));
+                } else if (feature instanceof EnableableFeature ef &&
+                             wX1 <= mouseX && mouseX <= wX2 &&
                     wY1 + scroll <= mouseY && mouseY <= wY2 + scroll) {
-                    feature.setEnabled(!feature.isEnabled());
+                    ef.setEnabled(!ef.isEnabled());
                 }
             }
         } else active = null;
@@ -138,7 +179,7 @@ public class EditFeaturesScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        scroll += amount * height / 50;
+        scroll += amount * height / 30;
         return super.mouseScrolled(mouseX, mouseY, amount);
     }
 
