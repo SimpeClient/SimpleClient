@@ -28,6 +28,7 @@ public class FeatureManagerImpl extends FeatureManager {
     @Override
     public void init() {
         addFeature(new FPS());
+        addFeature(new PerformanceBoost());
         super.init();
     }
 }
