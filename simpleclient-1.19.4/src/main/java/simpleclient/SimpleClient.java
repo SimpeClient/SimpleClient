@@ -17,7 +17,6 @@ public class SimpleClient implements ClientModInitializer {
     public void onInitializeClient() {
         VERSION = loadVersion();
         TranslationAdapter.INSTANCE = new TranslationAdapterImpl();
-        FeatureManager.INSTANCE = new FeatureManagerImpl();
         FeatureManager.INSTANCE.init();
     }
 

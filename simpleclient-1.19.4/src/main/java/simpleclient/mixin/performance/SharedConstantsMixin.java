@@ -1,4 +1,4 @@
-package simpleclient.mixin;
+package simpleclient.mixin.performance;
 
 import net.minecraft.SharedConstants;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,7 +9,7 @@ import simpleclient.feature.PerformanceBoost;
 
 @Mixin(SharedConstants.class)
 public class SharedConstantsMixin {
-    @Inject(at = @At("HEAD"), method = "enableDataFixerOptimizations")
+    @Inject(at = @At("HEAD"), method = "enableDataFixerOptimizations", cancellable = true)
     private static void enableDataFixerOptimizations(CallbackInfo ci) {
         if (PerformanceBoost.INSTANCE.isEnabled()) ci.cancel();
     }

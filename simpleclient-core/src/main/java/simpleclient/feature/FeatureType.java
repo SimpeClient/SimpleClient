@@ -1,7 +1,8 @@
 package simpleclient.feature;
 
 public enum FeatureType {
-    FPS("fps", "FPS");
+    FPS("fps", "FPS"),
+    PERFORMANCE_BOOST("performance_boost", "Performance Boost");
 
     private String id;
     private String name;
