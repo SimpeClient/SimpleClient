@@ -10,7 +10,8 @@
     "GuiMixin",
     "performance.LevelRendererMixin",
     "performance.OptionsMixin",
-    "performance.SharedConstantsMixin"
+    "performance.SharedConstantsMixin",
+    "OptionsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

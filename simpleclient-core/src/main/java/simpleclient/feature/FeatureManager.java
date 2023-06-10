@@ -18,16 +18,17 @@ public class FeatureManager {
     public void init() {
         SimpleClient.LOGGER.info("Features:");
         for (FeatureType type : FeatureType.values()) {
-            if (!this.features.stream().filter(f -> f.getType() == type).findAny().isPresent()) {
+            if (features.stream().filter(f -> f.getType() == type).findAny().isPresent()) {
                 SimpleClient.LOGGER.info("- " + type.getName());
             }
         }
         SimpleClient.LOGGER.info("Missing Features:");
         for (FeatureType type : FeatureType.values()) {
-            if (!this.features.stream().filter(f -> f.getType() == type).findAny().isEmpty()) {
+            if (features.stream().filter(f -> f.getType() == type).findAny().isEmpty()) {
                 SimpleClient.LOGGER.info("- " + type.getName());
             }
         }
+        features.forEach(Feature::init);
     }
 
     public void addFeature(Feature feature) {

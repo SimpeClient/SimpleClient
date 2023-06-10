@@ -15,6 +15,8 @@ public class Feature {
         this.type = type;
     }
 
+    public void init() {}
+
     public JsonObject getData() {
         JsonFile json = FeatureManager.INSTANCE.getJson();
         if (!json.has(getId())) json.set(getId(), new JsonObject());

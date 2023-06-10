@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import simpleclient.feature.PerformanceBoost;
 
 @Mixin(Options.class)
-public class OptionsMixin {
+public abstract class OptionsMixin {
     // +20% FPS
     @Inject(at = @At("HEAD"), method = "getCloudsType", cancellable = true)
     private void getCloudsType(CallbackInfoReturnable<CloudStatus> cir) {

@@ -4,10 +4,7 @@
   "version": "${version}",
   "name": "SimpleClient",
   "description": "SimpleClient is a simple Minecraft Client",
-  "authors": [
-    "Fabi.exe",
-    "Noriskky"
-  ],
+  "authors": ["Fabi.exe", "Noriskky"],
   "contact": {
     "homepage": "https://simpleclient.github.io",
     "sources": "https://github.com/SimpeClient"
@@ -19,9 +16,8 @@
     "client": ["simpleclient.SimpleClient"],
     "preLaunch": ["simpleclient.SimpleClientPreLaunch"]
   },
-  "mixins": [
-    "simpleclient.mixins.json"
-  ],
+  "mixins": ["simpleclient.mixins.json"],
+  "accessWidener": "simpleclient.accesswidener",
   "depends": {
     "java": ">=17",
     "minecraft": "~${minecraft_version}",

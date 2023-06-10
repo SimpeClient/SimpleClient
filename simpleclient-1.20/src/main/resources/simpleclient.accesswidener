@@ -1,0 +1,3 @@
+accessWidener   v1  named
+extendable  class   net/minecraft/client/OptionInstance
+mutable field   net/minecraft/client/Options gamma Lnet/minecraft/client/OptionInstance;
