@@ -12,6 +12,6 @@ public class SharedConstantsMixin {
     // Faster starting
     @Inject(at = @At("HEAD"), method = "enableDataFixerOptimizations", cancellable = true)
     private static void enableDataFixerOptimizations(CallbackInfo ci) {
-        if (PerformanceBoost.ENABLED) ci.cancel();
+        if (PerformanceBoost.FASTBOOT) ci.cancel();
     }
 }

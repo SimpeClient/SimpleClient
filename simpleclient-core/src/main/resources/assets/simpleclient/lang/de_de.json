@@ -3,5 +3,8 @@
   "simpleclient.edit_features": "Features bearbeiten",
   "simpleclient.edit_feature_config": "Featurekonfiguration bearbeiten",
   "simpleclient.edit_config_of": "Konfiguration von %s bearbeiten",
-  "simpleclient.motionblur.strength": "Motionblur Stärke"
+  "simpleclient.motionblur.strength": "Motionblur Stärke",
+  "simpleclient.performance.fastboot": "Schnelles Starten",
+  "simpleclient.performance.dont_render_clouds": "Wolken nicht rendern (+20% FPS)",
+  "simpleclient.performance.dont_render_sky_under_water": "Himmel unter Wasser nicht rendern (+10% FPS unter Wasser)"
 }

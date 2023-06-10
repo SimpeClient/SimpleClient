@@ -16,6 +16,6 @@ public class LevelRendererMixin {
     // +10% FPS under water
     @Inject(at = @At("HEAD"), method = "renderSky", cancellable = true)
     private void renderSky(PoseStack poseStack, Matrix4f matrix4f, float tickDelta, Camera camera, boolean bl, Runnable runnable, CallbackInfo ci) {
-        if (PerformanceBoost.ENABLED && camera.getFluidInCamera() != FogType.NONE) ci.cancel();
+        if (PerformanceBoost.DONT_RENDER_SKY_UNDER_WATER && camera.getFluidInCamera() != FogType.NONE) ci.cancel();
     }
 }
