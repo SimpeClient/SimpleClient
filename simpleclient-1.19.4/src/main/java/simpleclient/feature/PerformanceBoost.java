@@ -23,10 +23,9 @@ public class PerformanceBoost extends EnableableFeature {
 
     public void refresh() {
         ENABLED = isEnabled();
-        JsonObject data = getData();
-        FASTBOOT = ENABLED && fastBoot.load(data);
-        DONT_RENDER_CLOUDS = ENABLED && dontRenderCouds.load(data);
-        DONT_RENDER_SKY_UNDER_WATER = ENABLED && dontRenderSkyUnderWater.load(data);
+        FASTBOOT = ENABLED && getConfigValue(fastBoot);
+        DONT_RENDER_CLOUDS = ENABLED && getConfigValue(dontRenderCouds);
+        DONT_RENDER_SKY_UNDER_WATER = ENABLED && getConfigValue(dontRenderSkyUnderWater);
     }
 
     @Override

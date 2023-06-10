@@ -3,7 +3,8 @@ package simpleclient.feature;
 public enum FeatureType {
     FPS("fps", "FPS"),
     PERFORMANCE_BOOST("performance_boost", "Performance Boost"),
-    MOTIONBLUR("motionblur", "Motionblur");
+    MOTIONBLUR("motionblur", "Motionblur"),
+    ZOOM("zoom", "Zoom");
 
     private String id;
     private String name;

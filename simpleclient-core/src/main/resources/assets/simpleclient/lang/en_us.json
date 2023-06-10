@@ -1,10 +1,13 @@
 {
-  "key.categories.simpleclient": "SimpleClient",
+  "simpleclient.category": "SimpleClient",
   "simpleclient.edit_features": "Edit Features",
   "simpleclient.edit_feature_config": "Edit Feature Config",
   "simpleclient.edit_config_of": "Edit Config of %s",
   "simpleclient.motionblur.strength": "Motionblur Strength",
   "simpleclient.performance.fastboot": "Fast starting",
   "simpleclient.performance.dont_render_clouds": "Don't render clouds (+20% FPS)",
-  "simpleclient.performance.dont_render_sky_under_water": "Don't render sky under water (+10% FPS under water)"
+  "simpleclient.performance.dont_render_sky_under_water": "Don't render sky under water (+10% FPS under water)",
+  "simpleclient.zoom": "Zoom",
+  "simpleclient.zoom.zoom_factor": "Zoom Factor",
+  "simpleclient.zoom.smooth_camera": "Smooth Camera"
 }
