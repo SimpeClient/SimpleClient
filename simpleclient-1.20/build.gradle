@@ -17,8 +17,8 @@ dependencies {
     include project(path: ':simpleclient-core')
     // Dependencies
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-    //modImplementation "io.github.ladysnake:satin:${project.satin_version}"
-    //include "io.github.ladysnake:satin:${project.satin_version}"
+    modImplementation "io.github.ladysnake:satin:${project.satin_version}"
+    include "io.github.ladysnake:satin:${project.satin_version}"
 }
 
 loom {
