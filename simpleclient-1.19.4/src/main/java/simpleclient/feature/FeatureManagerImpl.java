@@ -18,6 +18,7 @@ public class FeatureManagerImpl extends FeatureManager {
         });
         addFeature(new FPS());
         addFeature(new PerformanceBoost());
+        addFeature(new Ping());
         addFeature(new Motionblur());
         addFeature(new Zoom());
         super.init();
