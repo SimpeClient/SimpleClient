@@ -38,3 +38,12 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
     it.options.release = 17
 }
+
+task copyJar(type: Copy) {
+    group = 'build'
+    from remapJar
+    if (!rootProject.file('build/libs').exists()) rootProject.file('build/libs').mkdirs()
+    into rootProject.file('build/libs')
+}
+
+remapJar.finalizedBy(copyJar)
