@@ -1,0 +1,28 @@
+name: publish
+on: []
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+      - name: setup jdk
+        uses: actions/setip-java@v3
+        with:
+          distribution: microsoft
+          java-version: 17
+          cache: gradle
+      - name: build
+        run: ./gradlew build
+      - name: read properties
+        id: read_properties
+        run: cat gradle.properties >> $GITHUB_OUTPUT
+      - name: release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          name: ${{format('SimpleClient {0}', steps.read_properties.outputs.simpleclient_version)}}
+          artifacts: build/libs/*
+          bodyfile: changelog.md
+          tag: ${{steps.read_properties.outputs.simpleclient_version}}
+          skipIfReleaseExists: true
