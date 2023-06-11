@@ -15,7 +15,7 @@ jobs:
       - name: Make Gradle executable
         run: chmod 755 gradlew
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew buildAll
       - name: Read Properties
         id: read_properties
         run: cat gradle.properties >> $GITHUB_OUTPUT
