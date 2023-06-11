@@ -45,5 +45,4 @@ task copyJar(type: Copy) {
     if (!rootProject.file('build/libs').exists()) rootProject.file('build/libs').mkdirs()
     into rootProject.file('build/libs')
 }
-
-remapJar.finalizedBy(copyJar)
+remapJar.finalizedBy copyJar

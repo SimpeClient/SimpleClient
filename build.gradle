@@ -1,19 +1,30 @@
 plugins {
+    id 'com.github.breadmoirai.github-release' version '2.4.1'
 }
 
 version = project.simpleclient_version
 group = 'simpleclient'
 
-repositories {
-}
-
-dependencies {
-}
-
 subprojects {
-}
-
-allprojects {
     version = rootProject.version
     group = rootProject.group
+}
+
+githubRelease {
+    token System.getenv('GITHUB_TOKEN') == null ? '' : System.getenv('GITHUB_TOKEN')
+    owner 'SimpleClient'
+    repo 'SimpleClient'
+    tagName version
+    targetCommitish 'main'
+    releaseName version
+    generateReleaseNotes false
+    body file('changelog.md').text.replace('%version%', version)
+    draft false
+    prerelease version.startsWith('0') || version.endsWith('-snapshot') || version.endsWith('-alpha') || version.endsWith('-beta') || version.endsWith('-dev')
+    releaseAssets file('build/libs').listFiles()
+    allowUploadToExisting.set false
+    overwrite true
+    dryRun false
+    apiEndpoint 'https://api.github.com'
+    client
 }
