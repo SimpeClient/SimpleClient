@@ -6,12 +6,13 @@
   "mixins": [
   ],
   "client": [
-    "GameRendererMixin",
-    "GuiMixin",
     "performance.LevelRendererMixin",
     "performance.OptionsMixin",
     "performance.SharedConstantsMixin",
-    "OptionsMixin"
+    "GameRendererMixin",
+    "GuiMixin",
+    "OptionsMixin",
+    "ScreenEffectRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

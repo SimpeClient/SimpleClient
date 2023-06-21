@@ -3,6 +3,7 @@
   "simpleclient.edit_features": "Edit Features",
   "simpleclient.edit_feature_config": "Edit Feature Config",
   "simpleclient.edit_config_of": "Edit Config of %s",
+  "simpleclient.lowfire.height": "Fire Height",
   "simpleclient.motionblur.strength": "Motionblur Strength",
   "simpleclient.performance.fastboot": "Fast starting",
   "simpleclient.performance.dont_render_clouds": "Don't render clouds (+20% FPS)",

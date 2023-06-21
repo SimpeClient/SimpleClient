@@ -3,6 +3,7 @@ package simpleclient.feature;
 public enum FeatureType {
     FPS("fps", "FPS"),
     FULLBRIGHT("fullbright", "Fullbright"),
+    LOWFIRE("lowfire", "Lowfire"),
     PERFORMANCE_BOOST("performance_boost", "Performance Boost"),
     PING("ping", "Ping"),
     MOTIONBLUR("motionblur", "Motionblur"),

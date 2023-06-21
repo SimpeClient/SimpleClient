@@ -3,6 +3,7 @@
   "simpleclient.edit_features": "Features bearbeiten",
   "simpleclient.edit_feature_config": "Featurekonfiguration bearbeiten",
   "simpleclient.edit_config_of": "Konfiguration von %s bearbeiten",
+  "simpleclient.lowfire.height": "Feuer Höhe",
   "simpleclient.motionblur.strength": "Motionblur Stärke",
   "simpleclient.performance.fastboot": "Schnelles Starten",
   "simpleclient.performance.dont_render_clouds": "Wolken nicht rendern (+20% FPS)",
