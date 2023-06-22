@@ -1,24 +1,23 @@
 plugins {
     id 'java'
     id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'legacy-looming' version '1.2-SNAPSHOT'
 }
 
 repositories {
-    maven { url = "https://ladysnake.jfrog.io/artifactory/mods" }
+    //maven { url = "https://repo.legacyfabric.net/repository/legacyfabric/" }
 }
 
 dependencies {
     // Minecraft
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
+    mappings legacy.yarn(project.minecraft_version, project.mappings_version)
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     // Core
     implementation project(path: ':simpleclient-core')
     include project(path: ':simpleclient-core')
     // Dependencies
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-    modImplementation "io.github.ladysnake:satin:${project.satin_version}"
-    include "io.github.ladysnake:satin:${project.satin_version}"
+    modImplementation "net.legacyfabric.legacy-fabric-api:legacy-fabric-api:${project.fabric_api_version}"
 }
 
 loom {

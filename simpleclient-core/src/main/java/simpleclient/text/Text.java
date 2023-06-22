@@ -19,17 +19,22 @@ public abstract class Text {
         return children;
     }
 
-    public Text addChild(Text child) {
+    public Text append(Text child) {
         children.add(child);
         return this;
     }
 
-    public Text removeChild(Text child) {
+    public Text append(String child) {
+        children.add(literal(child));
+        return this;
+    }
+
+    public Text remove(Text child) {
         children.remove(child);
         return this;
     }
 
-    public Text removeChild(int index) {
+    public Text remove(int index) {
         children.remove(index);
         return this;
     }

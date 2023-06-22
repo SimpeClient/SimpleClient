@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "SimpleClient",
   "description": "SimpleClient is a simple Minecraft Client",
-  "authors": ["Fabi.exe", "Noriskky"],
+  "authors": ["Fabi.exe"],
   "contact": {
     "homepage": "https://simpleclient.github.io",
     "sources": "https://github.com/SimpeClient/SimpleClient"
