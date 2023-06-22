@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'fabric-loom' version '1.1-SNAPSHOT'
+}
+
+repositories {
+    maven { url = "https://ladysnake.jfrog.io/artifactory/mods" }
+}
+
+dependencies {
+    // Minecraft
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    // Core
+    implementation project(path: ':simpleclient-core')
+    include project(path: ':simpleclient-core')
+    // Dependencies
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    modImplementation "io.github.ladysnake:satin:${project.satin_version}"
+    include "io.github.ladysnake:satin:${project.satin_version}"
+}
+
+loom {
+    accessWidenerPath = file('src/main/resources/simpleclient.accesswidener')
+}
+
+sourceSets {
+    main.resources.srcDirs += "${project(':simpleclient-core').projectDir}/src/main/resources"
+}
+
+processResources {
+    filesMatching('fabric.mod.json') {
+        expand 'version': version, 'minecraft_version': project.minecraft_version, 'fabric_loader_version': project.fabric_loader_version, 'fabric_api_version': project.fabric_api_version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+}
+
+task copyJar(type: Copy) {
+    group = 'build'
+    from remapJar
+    if (!rootProject.file('build/libs').exists()) rootProject.file('build/libs').mkdirs()
+    into rootProject.file('build/libs')
+}
+remapJar.finalizedBy copyJar

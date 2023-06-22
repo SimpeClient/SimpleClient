@@ -1,2 +1,2 @@
 ## SimpleClient %version%
-- Added Lowfire
+- Updated SimpleClient to 1.20.1
