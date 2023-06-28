@@ -1,14 +1,12 @@
 pluginManagement {
     repositories {
         maven { url = 'https://maven.fabricmc.net/' }
-        maven { url = 'https://repo.legacyfabric.net/repository/legacyfabric/' }
         mavenCentral()
         gradlePluginPortal()
     }
 }
 rootProject.name = 'simpleclient'
 include 'simpleclient-core'
-//include 'simpleclient-1.8.9'
 include 'simpleclient-1.19.4'
 include 'simpleclient-1.20'
 include 'simpleclient-1.20.1'

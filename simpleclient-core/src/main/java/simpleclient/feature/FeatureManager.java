@@ -24,7 +24,7 @@ public class FeatureManager {
         }
         SimpleClient.LOGGER.info("Missing Features:");
         for (FeatureType type : FeatureType.values()) {
-            if (features.stream().filter(f -> f.getType() == type).findAny().isEmpty()) {
+            if (!features.stream().filter(f -> f.getType() == type).findAny().isPresent()) {
                 SimpleClient.LOGGER.info("- " + type.getName());
             }
         }
@@ -41,7 +41,7 @@ public class FeatureManager {
 
     public List<EnableableFeature> getEnableableFeatures() {
         List<EnableableFeature> enableableFeatures = new ArrayList<>();
-        features.forEach(f -> {if (f instanceof EnableableFeature ef) enableableFeatures.add(ef);});
+        features.forEach(f -> {if (f instanceof EnableableFeature) enableableFeatures.add((EnableableFeature) f);});
         return enableableFeatures;
     }
 
