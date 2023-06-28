@@ -21,10 +21,22 @@ githubRelease {
     body file('changelog.md').text.replace('%version%', version)
     draft false
     prerelease version.startsWith('0') || version.endsWith('-snapshot') || version.endsWith('-alpha') || version.endsWith('-beta') || version.endsWith('-dev')
-    releaseAssets file('build/libs').listFiles()
+    var assets = []
+    [project('simpleclient-1.19.4'),
+     project('simpleclient-1.20'),
+     project('simpleclient-1.20.1')].forEach {
+        assets.add it.file("build/libs/${it.name}-${version}.jar")
+    }
+    releaseAssets assets.toArray()
     allowUploadToExisting.set false
     overwrite true
     dryRun false
     apiEndpoint 'https://api.github.com'
     client
+}
+
+tasks.named('githubRelease') {
+    dependsOn ':simpleclient-1.19.4:build'
+    dependsOn ':simpleclient-1.20:build'
+    dependsOn ':simpleclient-1.20.1:build'
 }
