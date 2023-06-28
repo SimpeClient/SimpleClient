@@ -1,6 +1,9 @@
 package simpleclient.feature;
 
 public enum FeatureType {
+    COORDINATES_X("coords_x", "Coordinates - X"),
+    COORDINATES_Y("coords_y", "Coordinates - Y"),
+    COORDINATES_Z("coords_z", "Coordinates - Z"),
     FPS("fps", "FPS"),
     FULLBRIGHT("fullbright", "Fullbright"),
     LOWFIRE("lowfire", "Lowfire"),

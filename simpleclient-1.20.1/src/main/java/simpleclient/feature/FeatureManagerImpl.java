@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 import simpleclient.gui.EditFeaturesScreen;
 
@@ -16,6 +17,9 @@ public class FeatureManagerImpl extends FeatureManager {
                 minecraft.setScreen(new EditFeaturesScreen());
             }
         });
+        addFeature(new Coordinates(FeatureType.COORDINATES_X, "x", "X", () -> Minecraft.getInstance().player.getX()));
+        addFeature(new Coordinates(FeatureType.COORDINATES_Y, "y", "Y", () -> Minecraft.getInstance().player.getY()));
+        addFeature(new Coordinates(FeatureType.COORDINATES_Z, "z", "Z", () -> Minecraft.getInstance().player.getZ()));
         addFeature(new FPS());
         addFeature(new Fullbright());
         addFeature(new Lowfire());
