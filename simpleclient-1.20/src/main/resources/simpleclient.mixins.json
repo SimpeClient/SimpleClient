@@ -11,8 +11,11 @@
     "performance.SharedConstantsMixin",
     "GameRendererMixin",
     "GuiMixin",
+    "IconSetMixin",
+    "MinecraftMixin",
     "OptionsMixin",
-    "ScreenEffectRendererMixin"
+    "ScreenEffectRendererMixin",
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
