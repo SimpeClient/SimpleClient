@@ -17,6 +17,7 @@ public class FeatureManagerImpl extends FeatureManager {
                 minecraft.setScreen(new EditFeaturesScreen());
             }
         });
+        addFeature(new Biome());
         addFeature(new Coordinates(FeatureType.COORDINATES_X, "x", "X", () -> Minecraft.getInstance().player.getX()));
         addFeature(new Coordinates(FeatureType.COORDINATES_Y, "y", "Y", () -> Minecraft.getInstance().player.getY()));
         addFeature(new Coordinates(FeatureType.COORDINATES_Z, "z", "Z", () -> Minecraft.getInstance().player.getZ()));

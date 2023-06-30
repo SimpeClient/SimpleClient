@@ -1,2 +1,2 @@
 ## SimpleClient %version%
-- Added Coordinates Mod
+- Added Biome Mod

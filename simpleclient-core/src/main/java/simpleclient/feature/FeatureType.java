@@ -1,6 +1,7 @@
 package simpleclient.feature;
 
 public enum FeatureType {
+    BIOME("biome", "Biome"),
     COORDINATES_X("coords_x", "Coordinates - X"),
     COORDINATES_Y("coords_y", "Coordinates - Y"),
     COORDINATES_Z("coords_z", "Coordinates - Z"),
