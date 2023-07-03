@@ -1,2 +1,2 @@
 ## SimpleClient %version%
-- Added Perspective Mod
+- Discord Integration
