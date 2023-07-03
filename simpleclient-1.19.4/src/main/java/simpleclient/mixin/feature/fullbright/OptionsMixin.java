@@ -1,4 +1,4 @@
-package simpleclient.mixin;
+package simpleclient.mixin.feature.fullbright;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;

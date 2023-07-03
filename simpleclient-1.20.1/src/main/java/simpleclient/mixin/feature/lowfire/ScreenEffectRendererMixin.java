@@ -1,4 +1,4 @@
-package simpleclient.mixin;
+package simpleclient.mixin.feature.lowfire;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;

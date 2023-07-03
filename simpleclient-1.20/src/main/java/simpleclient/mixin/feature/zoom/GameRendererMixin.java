@@ -1,4 +1,4 @@
-package simpleclient.mixin;
+package simpleclient.mixin.feature.zoom;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.GameRenderer;

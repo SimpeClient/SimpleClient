@@ -6,15 +6,17 @@
   "mixins": [
   ],
   "client": [
+    "feature.fullbright.OptionsMixin",
+    "feature.lowfire.ScreenEffectRendererMixin",
+    "feature.perspective.CameraMixin",
+    "feature.perspective.MouseMixin",
+    "feature.zoom.GameRendererMixin",
     "performance.LevelRendererMixin",
     "performance.OptionsMixin",
     "performance.SharedConstantsMixin",
-    "GameRendererMixin",
     "GuiMixin",
     "IconSetMixin",
     "MinecraftMixin",
-    "OptionsMixin",
-    "ScreenEffectRendererMixin",
     "TitleScreenMixin"
   ],
   "injectors": {

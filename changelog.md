@@ -1,2 +1,2 @@
 ## SimpleClient %version%
-- Added Biome Mod
+- Added Perspective Mod

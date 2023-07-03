@@ -17,8 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import simpleclient.SimpleClient;
 
-import java.io.IOException;
-
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
     @Shadow @Final private VanillaPackResources vanillaPackResources;

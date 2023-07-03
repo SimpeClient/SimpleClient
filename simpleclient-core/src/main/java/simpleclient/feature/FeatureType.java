@@ -9,6 +9,7 @@ public enum FeatureType {
     FULLBRIGHT("fullbright", "Fullbright"),
     LOWFIRE("lowfire", "Lowfire"),
     PERFORMANCE_BOOST("performance_boost", "Performance Boost"),
+    PERSPECTIVE("perspective", "Perspective"),
     PING("ping", "Ping"),
     MOTIONBLUR("motionblur", "Motionblur"),
     ZOOM("zoom", "Zoom");
