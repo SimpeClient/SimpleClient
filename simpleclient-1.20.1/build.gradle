@@ -22,6 +22,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     modImplementation "io.github.ladysnake:satin:${project.satin_version}"
     include "io.github.ladysnake:satin:${project.satin_version}"
+    implementation "com.github.JnCrMx:discord-game-sdk4j:${rootProject.discord_game_sdk_version}"
+    include "com.github.JnCrMx:discord-game-sdk4j:${rootProject.discord_game_sdk_version}"
 }
 
 loom {
