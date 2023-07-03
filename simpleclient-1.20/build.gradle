@@ -8,6 +8,7 @@ targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     maven { url = "https://ladysnake.jfrog.io/artifactory/mods" }
+    maven { url = "https://jitpack.io"}
 }
 
 dependencies {
