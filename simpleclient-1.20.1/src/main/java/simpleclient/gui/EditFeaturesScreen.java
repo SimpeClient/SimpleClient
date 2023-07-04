@@ -1,11 +1,8 @@
 package simpleclient.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import simpleclient.adapter.ItemRendererAdapter;
@@ -14,6 +11,7 @@ import simpleclient.adapter.TextRendererAdapter;
 import simpleclient.adapter.TextRendererAdapterImpl;
 import simpleclient.feature.*;
 import simpleclient.text.Text;
+import simpleclient.util.DrawUtil;
 
 import java.util.List;
 
@@ -56,19 +54,31 @@ public class EditFeaturesScreen extends Screen {
             int x = i % count;
             int y = i / count;
             int wSize = (width / 4 - 2 - count * 2) / count;
-            int wX1 = 2 + (2 + wSize) * x;
+            int wX1 = 3 + (2 + wSize) * x;
             int wY1 = 2 + 2 + (2 + wSize) * y;
-            int wX2 = (2 + wSize) * x + wSize;
+            int wX2 = (2 + wSize) * x + wSize + 1;
             int wY2 = 2 + (2 + wSize) * y + wSize;
             // Background
-            guiGraphics.fill(wX1, scroll + wY1, wX2, scroll + wY2, 0xff555555);
+            int corners = (wY2 - wY1) / 8;
+            DrawUtil.drawCircle(guiGraphics, wX1 + corners, scroll + wY1 + corners, corners, 90.0F, -90.0F, 0xFF555555);
+            DrawUtil.drawCircle(guiGraphics, wX2 - corners, scroll + wY1 + corners, corners, 90.0F, 0.0F, 0xFF555555);
+            DrawUtil.drawCircle(guiGraphics, wX1 + corners, scroll + wY2 - corners, corners, 90.0F, 180.0F, 0xFF555555);
+            DrawUtil.drawCircle(guiGraphics, wX2 - corners, scroll + wY2 - corners, corners, 90.0F, 90.0F, 0xFF555555);
+            guiGraphics.fill(wX1 + corners, scroll + wY1, wX2 - corners, scroll + wY1 + corners, 0xFF555555);
+            guiGraphics.fill(wX1 + corners, scroll + wY2 - corners, wX2 - corners, scroll + wY2, 0xFF555555);
+            guiGraphics.fill(wX1, scroll + wY1 + corners, wX1 + corners, scroll + wY2 - corners, 0xFF555555);
+            guiGraphics.fill(wX2 - corners, scroll + wY1 + corners, wX2, scroll + wY2 - corners, 0xFF555555);
+            guiGraphics.fill(wX1 + corners, scroll + wY1 + corners, wX2 - corners, scroll + wY2 - corners, 0xFF555555);
             // Enable Button
             if (feature instanceof EnableableFeature ef) {
-                guiGraphics.fill(wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2, wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10, ef.isEnabled() ? 0xff00ff00 : 0xffff0000);
+                int height = wSize / 6;
+                DrawUtil.drawCircle(guiGraphics, wX1 + wSize / 10 + height / 2, scroll + wY2 - wSize / 10 - height / 2, height / 2, 180.0F, 180.0F, ef.isEnabled() ? 0xFF00FF00 : 0xFFFF0000);
+                DrawUtil.drawCircle(guiGraphics, wX1 + wSize / 10 + wSize / 3 - height / 2, scroll + wY2 - wSize / 10 - height / 2, height / 2, 180.0F, 0.0F, ef.isEnabled() ? 0xFF00FF00 : 0xFFFF0000);
+                guiGraphics.fill(wX1 + wSize / 10 + height / 2, scroll + wY2 - wSize / 10 - wSize / 3 / 2, wX1 + wSize / 10 + wSize / 3 - height / 2, scroll + wY2 - wSize / 10, ef.isEnabled() ? 0xFF00FF00 : 0xFFFF0000);
                 if (ef.isEnabled()) {
-                    guiGraphics.fill(wX1 + wSize / 10 + wSize / 3 / 2 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
+                    DrawUtil.drawCircle(guiGraphics, wX1 + wSize / 10 + wSize / 3 - height / 2, scroll + wY2 - wSize / 10 - height / 2, height * 2 / 5, 360.0F, 0.0F, 0xFF000000);
                 } else {
-                    guiGraphics.fill(wX1 + wSize / 10 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 / 2 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
+                    DrawUtil.drawCircle(guiGraphics, wX1 + wSize / 10 + height / 2, scroll + wY2 - wSize / 10 - height / 2, height * 2 / 5, 360.0F, 0.0F, 0xFF000000);
                 }
             }
             // Config Button
@@ -78,7 +88,7 @@ public class EditFeaturesScreen extends Screen {
                 int cogwheelX = wX1 + wSize / 10 * 4 + wSize / 3;
                 int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
                 if (cogwheelX <= mouseX && mouseX <= cogwheelX + h &&
-                        cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
+                    cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
                     guiGraphics.pose().rotateAround(Axis.ZP.rotation((float) (System.currentTimeMillis() % 4000) / 400), cogwheelX + h / 2, cogwheelY + h / 2, 0.0F);
                 }
                 guiGraphics.blit(new ResourceLocation("simpleclient", "textures/settings.png"), cogwheelX, cogwheelY, 0, 0, h, h, h, h);
