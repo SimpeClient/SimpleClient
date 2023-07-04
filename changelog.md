@@ -1,2 +1,2 @@
 ## SimpleClient %version%
-- Discord Integration
+- Better GUI
