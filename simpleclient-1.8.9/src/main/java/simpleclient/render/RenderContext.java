@@ -10,9 +10,7 @@ import simpleclient.render.impl.TriangleFanRenderContext;
 import java.util.function.Consumer;
 
 public abstract class RenderContext {
-
 	public static final float ZERO_Z_LAYER = 0.f;
-
 	protected final BufferBuilder bufferBuilder;
 
 	public RenderContext(final BufferBuilder bufferBuilder) {
@@ -26,9 +24,9 @@ public abstract class RenderContext {
 	}
 	
 	public void end() {
+		Tessellator.getInstance().draw();
 		GlStateManager.enableTexture();
 		GlStateManager.disableBlend();
-		this.bufferBuilder.end();
 	}
 
 	public static void triangleFan(final Consumer<TriangleFanRenderContext> context) {

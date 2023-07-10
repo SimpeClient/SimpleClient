@@ -24,9 +24,9 @@ public class QuadsRenderContext extends RenderContext {
 		final float green = ((color >> 8) & 0xFF) / 255.F;
 		final float blue = (color & 0xFF) / 255.F;
 
-		this.bufferBuilder.vertex(left, top, RenderContext.ZERO_Z_LAYER).color(red, green, blue, alpha).end();
-		this.bufferBuilder.vertex(left, bottom, RenderContext.ZERO_Z_LAYER).color(red, green, blue, alpha).end();
-		this.bufferBuilder.vertex(right, bottom, RenderContext.ZERO_Z_LAYER).color(red, green, blue, alpha).end();
-		this.bufferBuilder.vertex(right, top, RenderContext.ZERO_Z_LAYER).color(red, green, blue, alpha).end();
+		this.bufferBuilder.vertex(left, top, RenderContext.ZERO_Z_LAYER).color(red, green, blue, alpha).next();
+		this.bufferBuilder.vertex(left, bottom, RenderContext.ZERO_Z_LAYER).color(red, green, blue, alpha).next();
+		this.bufferBuilder.vertex(right, bottom, RenderContext.ZERO_Z_LAYER).color(red, green, blue, alpha).next();
+		this.bufferBuilder.vertex(right, top, RenderContext.ZERO_Z_LAYER).color(red, green, blue, alpha).next();
 	}
 }
