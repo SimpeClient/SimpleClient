@@ -1,6 +1,6 @@
 package simpleclient;
 
-import org.slf4j.Logger;
+import java.util.logging.Logger;
 
 public class SimpleClient {
     public static final Logger LOGGER = null;
