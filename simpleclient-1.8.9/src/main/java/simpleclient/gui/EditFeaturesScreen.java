@@ -11,6 +11,7 @@ import simpleclient.adapter.TextRendererAdapter;
 import simpleclient.adapter.TextRendererAdapterImpl;
 import simpleclient.feature.*;
 import simpleclient.text.Text;
+import simpleclient.util.DrawUtil;
 
 import java.util.List;
 
@@ -58,7 +59,8 @@ public class EditFeaturesScreen extends Screen {
             int wX2 = (2 + wSize) * x + wSize;
             int wY2 = 2 + (2 + wSize) * y + wSize;
             // Background
-            DrawableHelper.fill(wX1, scroll + wY1, wX2, scroll + wY2, 0xff555555);
+            int corners = (wY2 - wY1) / 8;
+            DrawUtil.roundedRectangle(wX1, wY1 + this.scroll, wX2, wY2 + this.scroll, corners, 0xFF555555);
             // Enable Button
             if (feature instanceof EnableableFeature) {
                 DrawableHelper.fill(wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2, wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10, ((EnableableFeature) feature).isEnabled() ? 0xff00ff00 : 0xffff0000);
@@ -76,7 +78,7 @@ public class EditFeaturesScreen extends Screen {
                 int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
                 if (cogwheelX <= mouseX && mouseX <= cogwheelX + h &&
                     cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
-                    GlStateManager.rotate((float) (System.currentTimeMillis() % 4000) / 400, cogwheelX + h / 2.0F, cogwheelY + h / 2.0F, 0.0F);
+                    GlStateManager.rotate((float) (System.currentTimeMillis() % 4000) / 100, cogwheelX + h / 2, 0, cogwheelY + h / 2);
                 }
                 client.getTextureManager().bindTexture(new Identifier("simpleclient", "textures/settings.png"));
                 DrawableHelper.drawTexture(cogwheelX, cogwheelY, 0, 0, h, h, h, h);
@@ -170,7 +172,7 @@ public class EditFeaturesScreen extends Screen {
 
     @Override
     public void handleMouse() {
-        scroll += Mouse.getDWheel() * height / 30;
+        scroll += Mouse.getDWheel() * height / 3000;
         super.handleMouse();
     }
 

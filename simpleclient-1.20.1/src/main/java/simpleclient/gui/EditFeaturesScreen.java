@@ -59,7 +59,6 @@ public class EditFeaturesScreen extends Screen {
 			// Background
 			int corners = (wY2 - wY1) / 8;
 			DrawUtil.roundedRectangle(guiGraphics, wX1, wY1 + this.scroll, wX2, wY2 + this.scroll, corners, 0xFF555555);
-
 			// Enable Button
 			if (feature instanceof EnableableFeature ef) {
 				int height = wSize / 6;

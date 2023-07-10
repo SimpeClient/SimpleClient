@@ -34,12 +34,13 @@ public class EnableConfigEntry implements ConfigEntry<Boolean> {
 
     @Override
     public ButtonWidget createWidget(Feature feature) {
-        Function<Boolean, String> text = value -> TextAdapter.adapt(displayText.append(": ").append(Text.translatable(value ? "options.on" : "options.off"))).asUnformattedString();
+        Function<Boolean, String> text = value -> TextAdapter.adapt(displayText).asUnformattedString() + ": " + TextAdapter.adapt(Text.translatable(value ? "options.on" : "options.off")).asUnformattedString();
         return new ButtonWidget(-1, 0, 0, 200, 20, text.apply(feature.getConfigValue(this))) {
             @Override
             public void mouseReleased(int mouseX, int mouseY) {
                 boolean value = feature.getConfigValue(EnableConfigEntry.this);
                 feature.setConfigValue(EnableConfigEntry.this, !value);
+                System.out.println(text.apply(!value));
                 message = text.apply(!value);
             }
         };

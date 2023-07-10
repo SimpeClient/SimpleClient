@@ -37,7 +37,7 @@ public class FloatConfigEntry implements ConfigEntry<Float> {
 
     @Override
     public ButtonWidget createWidget(Feature feature) {
-        Function<Float, String> text = value -> TextAdapter.adapt(displayText.append(": ").append(valueText.apply((value)))).asUnformattedString();
+        Function<Float, String> text = value -> TextAdapter.adapt(displayText).asUnformattedString() + ": " + TextAdapter.adapt(valueText.apply(value)).asUnformattedString();
         return new SliderWidget(
                 new PagedEntryListWidget.Listener() {
                     @Override

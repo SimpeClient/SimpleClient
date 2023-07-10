@@ -1,8 +1,8 @@
 package simpleclient;
 
-import java.util.logging.Logger;
+import simpleclient.adapter.LoggerAdapter;
 
 public class SimpleClient {
-    public static final Logger LOGGER = null;
+    public static final LoggerAdapter LOGGER = null;
     public static String VERSION = null;
 }

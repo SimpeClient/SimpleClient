@@ -25,7 +25,12 @@ public class EditFeatureConfigScreen extends Screen {
     public void init() {
         List<ButtonWidget> widgets = new ArrayList<>();
         int y = 20 + textRenderer.fontHeight;
-        widgets.add(new ButtonWidget(-1, 0, 0, 200, 20, I18n.translate("gui.done")));
+        widgets.add(new ButtonWidget(-1, 0, 0, 200, 20, I18n.translate("gui.done")) {
+            @Override
+            public void mouseReleased(int i, int j) {
+                client.setScreen(parent);
+            }
+        });
         feature.getConfig().forEach(e -> widgets.add((ButtonWidget) e.createWidget(feature)));
         for (int i = 0; i < widgets.size(); i++) {
             ButtonWidget widget = widgets.get(i);
@@ -45,7 +50,7 @@ public class EditFeatureConfigScreen extends Screen {
     }
 
     @Override
-    public void removed() {
-        client.setScreen(parent);
+    protected void keyPressed(char c, int i) {
+        if (i == 1) client.setScreen(parent); else super.keyPressed(c, i);
     }
 }
