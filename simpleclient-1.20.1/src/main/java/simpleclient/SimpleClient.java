@@ -2,13 +2,19 @@ package simpleclient;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import simpleclient.adapter.TranslationAdapter;
 import simpleclient.adapter.TranslationAdapterImpl;
 import simpleclient.feature.FeatureManager;
+import simpleclient.feature.LegacyPvP;
 import simpleclient.util.DiscordRPC;
 
 import java.net.InetSocketAddress;
@@ -40,6 +46,7 @@ public class SimpleClient implements ClientModInitializer {
             }
         });
         ClientLifecycleEvents.CLIENT_STOPPING.register(client -> DiscordRPC.INSTANCE.close());
+        LegacyPvP.init();
     }
 
     public String loadVersion() {

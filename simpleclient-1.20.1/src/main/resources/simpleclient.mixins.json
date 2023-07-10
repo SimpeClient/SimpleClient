@@ -4,20 +4,27 @@
   "package": "simpleclient.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "feature.legacypvp.PlayerMixin"
   ],
   "client": [
+    "GuiMixin",
+    "IconSetMixin",
+    "MinecraftMixin",
+    "TitleScreenMixin",
     "feature.fullbright.OptionsMixin",
+    "feature.legacypvp.GuiMixin",
+    "feature.legacypvp.HumanoidModelMixin",
+    "feature.legacypvp.ItemInHandRendererMixin",
+    "feature.legacypvp.LivingEntityMixin",
+    "feature.legacypvp.PlayerItemInHandLayerMixin",
+    "feature.legacypvp.SwordItemMixin",
     "feature.lowfire.ScreenEffectRendererMixin",
     "feature.perspective.CameraMixin",
     "feature.perspective.MouseMixin",
     "feature.zoom.GameRendererMixin",
     "performance.LevelRendererMixin",
     "performance.OptionsMixin",
-    "performance.SharedConstantsMixin",
-    "GuiMixin",
-    "IconSetMixin",
-    "MinecraftMixin",
-    "TitleScreenMixin"
+    "performance.SharedConstantsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

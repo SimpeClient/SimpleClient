@@ -1,0 +1,51 @@
+package simpleclient.feature;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import simpleclient.SimpleClient;
+
+import java.util.*;
+
+public class LegacyPvP {
+    public static boolean ENABLED = false;
+    public static boolean BLOCKING = false;
+    private static final Set<UUID> blockingPlayers = new HashSet<>();
+
+    public static void init() {
+        ClientEntityEvents.ENTITY_LOAD.register((entity, world) -> {
+            if (entity == Minecraft.getInstance().player) {
+                BLOCKING = false;
+                blockingPlayers.clear();
+            }
+        });
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            ByteBuf buf = Unpooled.buffer();
+            buf.writeBytes(SimpleClient.VERSION.getBytes());
+            ClientPlayNetworking.send(new ResourceLocation("simpleclient", "handshake"), new FriendlyByteBuf(buf));
+        });
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> LegacyPvP.ENABLED = false);
+        ClientPlayNetworking.registerGlobalReceiver(new ResourceLocation("simpleclient:legacypvp"), (client, handler, buf, sender) -> {
+            byte method = buf.readByte();
+            if (method == 0) LegacyPvP.ENABLED = true;
+            if (method == 1) LegacyPvP.ENABLED = false;
+            if (method == 2) blockingPlayers.add(buf.readUUID());
+            if (method == 3) blockingPlayers.remove(buf.readUUID());
+        });
+    }
+
+    public static boolean isBlocking(UUID uuid) {
+        return (uuid.equals(Minecraft.getInstance().player.getUUID()) && BLOCKING) || blockingPlayers.contains(uuid);
+    }
+
+    public static boolean isBlocking(Player player) {
+        return isBlocking(player.getUUID());
+    }
+}

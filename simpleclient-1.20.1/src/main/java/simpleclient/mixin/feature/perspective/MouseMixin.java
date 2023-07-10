@@ -15,7 +15,6 @@ public class MouseMixin {
         if (Perspective.ACTIVE) {
             Perspective.YAW = (float) (Perspective.YAW + k / 8.0D);
             Perspective.PITCH = (float) Math.max(-90, Math.min(Perspective.PITCH + l * m / 8.0D, 90));
-            System.out.println(Perspective.YAW + " " + Perspective.PITCH);
             ci.cancel();
         }
     }
