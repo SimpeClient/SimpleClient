@@ -30,18 +30,14 @@ public class EditFeaturesScreen extends Screen {
         ItemRendererAdapter itemRenderer = new ItemRendererAdapterImpl();
         // Render Renderable Features
         for (Feature feature : FeatureManager.INSTANCE.getFeatures()) {
-            if (feature instanceof RenderableFeature && ((RenderableFeature) feature).isEnabled()) {
-                ((RenderableFeature) feature).renderDummy(textRenderer, itemRenderer, width, height);
-                if (feature instanceof DraggableFeature) {
-                    DraggableFeature df = (DraggableFeature) feature;
-                    int x1 = df.getXPos(width) - 1;
-                    int y1 = df.getYPos(height) - 1;
-                    int x2 = df.getXPos(width) + df.getWidth(textRenderer, itemRenderer, width, height) + 1;
-                    int y2 = df.getYPos(height) + df.getHeight(textRenderer, itemRenderer, width, height) + 1;
-                    DrawableHelper.fill(x1 - 1, y1 - 1, x2 + 1, y1, 0xFFAAAAAA);
-                    DrawableHelper.fill(x1 - 1, y2, x2 + 1, y2 + 1, 0xFFAAAAAA);
-                    DrawableHelper.fill(x1 - 1, y1 - 1, x1, y2 + 1, 0xFFAAAAAA);
-                    DrawableHelper.fill(x2, y1 - 1, x2 + 1, y2 + 1, 0xFFAAAAAA);
+            if (feature instanceof RenderableFeature rf && rf.isEnabled()) {
+                rf.renderDummy(textRenderer, itemRenderer, width, height);
+                if (rf instanceof DraggableFeature df) {
+                    final float xPos = df.getXPos(width);
+                    final float yPos = df.getYPos(height);
+                    DrawUtil.border(xPos - 1, yPos - 1,
+                            xPos + df.getWidth(textRenderer, itemRenderer, width, height) + 1,
+                            yPos + df.getHeight(textRenderer, itemRenderer, width, height) + 1, 1.f, 1.f, 0xFFAAAAAA);
                 }
             }
         }
@@ -62,12 +58,17 @@ public class EditFeaturesScreen extends Screen {
             int corners = (wY2 - wY1) / 8;
             DrawUtil.roundedRectangle(wX1, wY1 + this.scroll, wX2, wY2 + this.scroll, corners, 0xFF555555);
             // Enable Button
-            if (feature instanceof EnableableFeature) {
-                DrawableHelper.fill(wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2, wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10, ((EnableableFeature) feature).isEnabled() ? 0xff00ff00 : 0xffff0000);
-                if (((EnableableFeature) feature).isEnabled()) {
-                    DrawableHelper.fill(wX1 + wSize / 10 + wSize / 3 / 2 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
+            if (feature instanceof EnableableFeature ef) {
+                int height = wSize / 6;
+                DrawUtil.stadium(wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2,
+                        wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10,
+                        ef.isEnabled() ? 0xFF00FF00 : 0xFFFF0000);
+                if (ef.isEnabled()) {
+                    DrawUtil.circle(wX1 + wSize / 10 + wSize / 3 - height / 2,
+                            scroll + wY2 - wSize / 10 - height / 2, height * 2 / 5, 0xFF000000);
                 } else {
-                    DrawableHelper.fill(wX1 + wSize / 10 + wSize / 20, scroll + wY2 - wSize / 10 - wSize / 3 / 2 + wSize / 20, wX1 + wSize / 10 + wSize / 3 / 2 - wSize / 20, scroll + wY2 - wSize / 10 - wSize / 20, 0xff000000);
+                    DrawUtil.circle(wX1 + wSize / 10 + height / 2, scroll + wY2 - wSize / 10 - height / 2,
+                            height * 2 / 5, 0xFF000000);
                 }
             }
             // Config Button
