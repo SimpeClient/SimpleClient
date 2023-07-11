@@ -1,9 +1,12 @@
 package simpleclient.gui;
 
+import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.input.Mouse;
 import simpleclient.adapter.ItemRendererAdapter;
 import simpleclient.adapter.ItemRendererAdapterImpl;
@@ -49,17 +52,17 @@ public class EditFeaturesScreen extends Screen {
             int count = (int) Math.ceil((double) width / 4 / 100);
             int x = i % count;
             int y = i / count;
-            int wSize = (width / 4 - 2 - count * 2) / count;
-            int wX1 = 2 + (2 + wSize) * x;
-            int wY1 = 2 + 2 + (2 + wSize) * y;
-            int wX2 = (2 + wSize) * x + wSize;
-            int wY2 = 2 + (2 + wSize) * y + wSize;
+            float wSize = (width / 4 - 2 - count * 2) / count;
+            float wX1 = 2 + (2 + wSize) * x;
+            float wY1 = 2 + 2 + (2 + wSize) * y;
+            float wX2 = (2 + wSize) * x + wSize;
+            float wY2 = 2 + (2 + wSize) * y + wSize;
             // Background
-            int corners = (wY2 - wY1) / 8;
+            float corners = (wY2 - wY1) / 8;
             DrawUtil.roundedRectangle(wX1, wY1 + this.scroll, wX2, wY2 + this.scroll, corners, 0xFF555555);
             // Enable Button
             if (feature instanceof EnableableFeature ef) {
-                int height = wSize / 6;
+                float height = wSize / 6;
                 DrawUtil.stadium(wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2,
                         wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10,
                         ef.isEnabled() ? 0xFF00FF00 : 0xFFFF0000);
@@ -74,21 +77,26 @@ public class EditFeaturesScreen extends Screen {
             // Config Button
             if (feature.hasConfig()) {
                 GlStateManager.pushMatrix();
-                int h = wSize / 3 / 2;
-                int cogwheelX = wX1 + wSize / 10 * 4 + wSize / 3;
-                int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
-                if (cogwheelX <= mouseX && mouseX <= cogwheelX + h &&
-                    cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
-                    GlStateManager.rotate((float) (System.currentTimeMillis() % 4000) / 100, cogwheelX + h / 2, 0, cogwheelY + h / 2);
+                float height = wSize / 6;
+                float cogwheelX = wX2 - wSize / 10 - height;
+                float cogwheelY = scroll + wY2 - wSize / 10 - height;
+                float degrees = 360.0F / 400 * ((float) (System.currentTimeMillis() % 4000) / 10);
+                GlStateManager.translate(cogwheelX + height / 2, cogwheelY + height / 2, 0);
+                // Rotate
+                GlStateManager.pushMatrix();
+                if (cogwheelX <= mouseX && mouseX < cogwheelX + height &&
+                    cogwheelY <= mouseY && mouseY < cogwheelY + height) {
+                    GlStateManager.rotate(degrees, 0.0F, 0.0F, 1.0F);
                 }
                 client.getTextureManager().bindTexture(new Identifier("simpleclient", "textures/settings.png"));
-                DrawableHelper.drawTexture(cogwheelX, cogwheelY, 0, 0, h, h, h, h);
+                DrawableHelper.drawTexture((int) (height / -2), (int) (height / -2), 0, 0, (int) height, (int) height, height, height);
+                GlStateManager.popMatrix();
                 GlStateManager.popMatrix();
             }
             // Name
             GlStateManager.pushMatrix();
-            float scaleX = (((float) wSize) * 0.8F) / textRenderer.getWidth(feature.getName().split(" - ")[0]);
-            float scaleY = (((float) wSize) * 0.3F) / textRenderer.getHeight();
+            float scaleX = (wSize * 0.8F) / textRenderer.getWidth(feature.getName().split(" - ")[0]);
+            float scaleY = (wSize * 0.3F) / textRenderer.getHeight();
             float scale = Math.min(scaleX, scaleY);
             GlStateManager.scale(scale, scale, scale);
             int yOffset = 0;
@@ -135,7 +143,7 @@ public class EditFeaturesScreen extends Screen {
                 int wX2 = (2 + wSize) * x + wSize;
                 int wY2 = 2 + (2 + wSize) * y + wSize;
                 int h = wSize / 3 / 2;
-                int cogwheelX = wX1 + wSize / 10 * 4 + wSize / 3;
+                int cogwheelX = wX2 - wSize / 10 - height;
                 int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
                 if (feature.hasConfig() &&
                     cogwheelX <= mouseX && mouseX <= cogwheelX + h &&

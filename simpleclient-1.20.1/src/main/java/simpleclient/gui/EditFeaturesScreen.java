@@ -80,8 +80,8 @@ public class EditFeaturesScreen extends Screen {
                 int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
                 if (cogwheelX <= mouseX && mouseX <= cogwheelX + h &&
                     cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
-                    guiGraphics.pose().rotateAround(Axis.ZP.rotation((float) (System.currentTimeMillis() % 4000) / 400),
-                            cogwheelX + h / 2, cogwheelY + h / 2, 0.0F);
+                    float degrees = 360.0F / 400 * ((float) (System.currentTimeMillis() % 4000) / 10);
+                    guiGraphics.pose().rotateAround(Axis.ZP.rotation(degrees), cogwheelX + h / 2, cogwheelY + h / 2, 0.0F);
                 }
                 guiGraphics.blit(new ResourceLocation("simpleclient", "textures/settings.png"), cogwheelX, cogwheelY, 0,
                         0, h, h, h, h);

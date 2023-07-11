@@ -91,7 +91,8 @@ public class EditFeaturesScreen extends Screen {
                 int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
                 if (cogwheelX <= mouseX && mouseX <= cogwheelX + h &&
                     cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
-                    poseStack.rotateAround(Axis.ZP.rotation((float) (System.currentTimeMillis() % 4000) / 400), cogwheelX + h / 2, cogwheelY + h / 2, 0.0F);
+                    float degrees = 360.0F / 400 * ((float) (System.currentTimeMillis() % 4000) / 10);
+                    poseStack.rotateAround(Axis.ZP.rotationDegrees(degrees), cogwheelX + h / 2, cogwheelY + h / 2, 0.0F);
                 }
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
