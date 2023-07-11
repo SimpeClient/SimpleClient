@@ -1,2 +1,3 @@
 accessWidener   v1  named
 accessible field   net/minecraft/client/gui/widget/ButtonWidget height I
+accessible  method  net/minecraft/client/MinecraftClient    setDefaultIcon  ()V

@@ -42,6 +42,7 @@ public class SimpleClient implements ClientModInitializer {
         }
     };
     public static String VERSION = "unknown";
+    public static String MINECRAFT_VERSION = "1.19.4";
 
     @Override
     public void onInitializeClient() {

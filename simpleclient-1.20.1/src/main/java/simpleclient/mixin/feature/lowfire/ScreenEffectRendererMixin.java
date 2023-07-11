@@ -12,7 +12,7 @@ import simpleclient.feature.Lowfire;
 @Mixin(ScreenEffectRenderer.class)
 public class ScreenEffectRendererMixin {
     @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V"), method = "renderFire")
-    private static void onRenderFireOverlay(Minecraft minecraft, PoseStack poseStack, CallbackInfo ci) {
+    private static void renderFire(Minecraft minecraft, PoseStack poseStack, CallbackInfo ci) {
         if (Lowfire.ENABLED) poseStack.translate(0.0, Lowfire.HEIGHT * 1.75 - 0.5, 0.0);
     }
 }

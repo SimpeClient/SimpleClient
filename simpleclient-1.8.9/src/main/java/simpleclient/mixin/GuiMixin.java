@@ -1,10 +1,8 @@
 package simpleclient.mixin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,22 +18,24 @@ import simpleclient.feature.Feature;
 import simpleclient.feature.FeatureManager;
 import simpleclient.feature.RenderableFeature;
 import simpleclient.gui.EditFeaturesScreen;
+import simpleclient.text.Text;
 
-@Mixin(Gui.class)
+@Mixin(InGameHud.class)
 public abstract class GuiMixin {
-    @Shadow public abstract Font getFont();
-    @Shadow @Final private Minecraft minecraft;
+    @Shadow public abstract TextRenderer getFontRenderer();
+    @Shadow @Final private MinecraftClient client;
 
     @Inject(at = @At("TAIL"), method = "render")
-    private void render(GuiGraphics guiGraphics, float tickDelta, CallbackInfo ci) {
-        TextRendererAdapter textRenderer = new TextRendererAdapterImpl(guiGraphics, getFont());
-        ItemRendererAdapter itemRenderer = new ItemRendererAdapterImpl(guiGraphics);
+    private void render(float partialTicks, CallbackInfo ci) {
+        TextRendererAdapter textRenderer = new TextRendererAdapterImpl(getFontRenderer());
+        ItemRendererAdapter itemRenderer = new ItemRendererAdapterImpl();
         // Watermark
-        guiGraphics.drawString(getFont(), "SimpleClient " + SimpleClient.VERSION, minecraft.getWindow().getGuiScaledWidth() - getFont().width("SimpleClient " + SimpleClient.VERSION) - 1, 1, 0xFFAAAAAA, true);
+        String watermark = "SimpleClient " + SimpleClient.VERSION;
+        textRenderer.renderWithShadow(Text.literal(watermark), client.width - textRenderer.getWidth(watermark) - 1, 1, 0xFFAAAAAA);
         // Features
-        if (!(minecraft.screen instanceof EditFeaturesScreen)) {
-            int width = minecraft.getWindow().getGuiScaledWidth();
-            int height = minecraft.getWindow().getGuiScaledHeight();
+        if (!(client.currentScreen instanceof EditFeaturesScreen)) {
+            int width = client.width / 2;
+            int height = client.height / 2;
             for (Feature feature : FeatureManager.INSTANCE.getFeatures()) {
                 if (feature instanceof RenderableFeature rf && rf.isEnabled()) {
                     rf.render(textRenderer, itemRenderer, width, height);

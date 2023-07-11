@@ -6,6 +6,12 @@
   "mixins": [
   ],
   "client": [
+    "feature.fullbright.MinecraftClientMixin",
+    "feature.lowfire.EntityRendererMixin",
+    "feature.zoom.GameRendererMixin",
+    "GuiMixin",
+    "MinecraftClientMixin",
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

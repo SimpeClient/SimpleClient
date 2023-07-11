@@ -10,7 +10,7 @@
     "sources": "https://github.com/SimpeClient/SimpleClient"
   },
   "license": "MIT",
-  "icon": "icon.png",
+  "icon": "assets/simpleclient/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": ["simpleclient.SimpleClient"],
