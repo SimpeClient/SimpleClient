@@ -15,6 +15,7 @@ public class FeatureManagerImpl extends FeatureManager {
                 minecraft.setScreen(new EditFeaturesScreen());
             }
         });
+        addFeature(new Biome());
         addFeature(new FPS());
         addFeature(new Fullbright());
         addFeature(new Lowfire());

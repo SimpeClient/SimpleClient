@@ -16,8 +16,7 @@ public class Ping extends DraggableTextFeature {
             Minecraft minecraft = Minecraft.getInstance();
             PlayerInfo entry = minecraft.getConnection().getPlayerInfo(minecraft.player.getUUID());
             return entry == null ? "-" : (entry.getLatency() + "ms");
-        }
-        else return "";
+        } else return "";
     }
 
     @Override

@@ -10,7 +10,7 @@
     "MinecraftClientMixin",
     "TitleScreenMixin",
     "feature.fullbright.MinecraftClientMixin",
-    "feature.lowfire.EntityRendererMixin",
+    "feature.lowfire.HeldItemRendererMixin",
     "feature.motionblur.MinecraftClientMixin",
     "feature.motionblur.ReloadableResourceManagerImplMixin",
     "feature.pvp_improvements.LivingEntityMixin",

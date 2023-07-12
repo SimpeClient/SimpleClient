@@ -31,7 +31,7 @@ public abstract class GuiMixin {
         ItemRendererAdapter itemRenderer = new ItemRendererAdapterImpl();
         // Watermark
         String watermark = "SimpleClient " + SimpleClient.VERSION;
-        textRenderer.renderWithShadow(Text.literal(watermark), client.width - textRenderer.getWidth(watermark) - 1, 1, 0xFFAAAAAA);
+        textRenderer.renderWithShadow(Text.literal(watermark), client.width / 2 - textRenderer.getWidth(watermark) - 1, 1, 0xFFAAAAAA);
         // Features
         if (!(client.currentScreen instanceof EditFeaturesScreen)) {
             int width = client.width / 2;
