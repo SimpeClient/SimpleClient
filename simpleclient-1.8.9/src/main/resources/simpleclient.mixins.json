@@ -6,12 +6,16 @@
   "mixins": [
   ],
   "client": [
-    "feature.fullbright.MinecraftClientMixin",
-    "feature.lowfire.EntityRendererMixin",
-    "feature.zoom.GameRendererMixin",
     "GuiMixin",
     "MinecraftClientMixin",
-    "TitleScreenMixin"
+    "TitleScreenMixin",
+    "feature.fullbright.MinecraftClientMixin",
+    "feature.lowfire.EntityRendererMixin",
+    "feature.motionblur.MinecraftClientMixin",
+    "feature.motionblur.ReloadableResourceManagerImplMixin",
+    "feature.pvp_improvements.LivingEntityMixin",
+    "feature.pvp_improvements.MinecraftClientMixin",
+    "feature.zoom.GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

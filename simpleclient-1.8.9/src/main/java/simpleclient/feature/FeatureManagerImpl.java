@@ -17,7 +17,10 @@ public class FeatureManagerImpl extends FeatureManager {
         });
         addFeature(new FPS());
         addFeature(new Fullbright());
+        addFeature(new Lowfire());
+        addFeature(new Motionblur());
         addFeature(new Ping());
+        addFeature(new PvPImprovements());
         addFeature(new Zoom());
         super.init();
     }

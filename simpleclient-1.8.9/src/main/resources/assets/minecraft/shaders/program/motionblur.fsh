@@ -6,8 +6,6 @@ uniform sampler2D PrevSampler;
 varying vec2 texCoord;
 varying vec2 oneTexel;
 
-uniform vec2 InSize;
-
 uniform float strength = 0.0;
 
 void main() {

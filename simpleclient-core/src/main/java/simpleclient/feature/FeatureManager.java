@@ -24,7 +24,8 @@ public class FeatureManager {
         }
         SimpleClient.LOGGER.info("Missing Features:");
         for (FeatureType type : FeatureType.values()) {
-            if (features.stream().noneMatch(f -> f.getType() == type)) {
+            if (type.getAvailableMinecraftVersions().contains(SimpleClient.MINECRAFT_VERSION) &&
+                    features.stream().noneMatch(f -> f.getType() == type)) {
                 SimpleClient.LOGGER.info("- " + type.getName());
             }
         }

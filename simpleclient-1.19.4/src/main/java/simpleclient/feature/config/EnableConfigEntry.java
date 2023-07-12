@@ -5,17 +5,18 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import simpleclient.adapter.TextAdapter;
 import simpleclient.feature.Feature;
+import simpleclient.text.Text;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class EnableConfigEntry implements ConfigEntry<Boolean> {
     private String key;
     private boolean defaultValue;
-    private Component displayText;
+    private Text displayText;
 
-    public EnableConfigEntry(String key, Component displayText, boolean defaultValue) {
+    public EnableConfigEntry(String key, Text displayText, boolean defaultValue) {
         this.key = key;
         this.defaultValue = defaultValue;
         this.displayText = displayText;
@@ -34,7 +35,7 @@ public class EnableConfigEntry implements ConfigEntry<Boolean> {
 
     @Override
     public AbstractWidget createWidget(Feature feature) {
-        Function<Boolean, Component> text = value -> displayText.copy().append(": ").append(value ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF);
+        Function<Boolean, Component> text = value -> TextAdapter.adapt(displayText).copy().append(": ").append(value ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF);
         return Button.builder(text.apply(feature.getConfigValue(this)), button -> {
             boolean value = feature.getConfigValue(this);
             feature.setConfigValue(this, !value);

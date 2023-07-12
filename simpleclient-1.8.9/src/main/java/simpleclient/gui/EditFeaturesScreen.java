@@ -1,12 +1,9 @@
 package simpleclient.gui;
 
-import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import org.lwjgl.input.Mouse;
 import simpleclient.adapter.ItemRendererAdapter;
 import simpleclient.adapter.ItemRendererAdapterImpl;
@@ -142,12 +139,12 @@ public class EditFeaturesScreen extends Screen {
                 int wY1 = 2 + 2 + (2 + wSize) * y;
                 int wX2 = (2 + wSize) * x + wSize;
                 int wY2 = 2 + (2 + wSize) * y + wSize;
-                int h = wSize / 3 / 2;
-                int cogwheelX = wX2 - wSize / 10 - height;
-                int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
+                float height = wSize / 6;
+                float cogwheelX = wX2 - wSize / 10 - height;
+                float cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
                 if (feature.hasConfig() &&
-                    cogwheelX <= mouseX && mouseX <= cogwheelX + h &&
-                    cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
+                    cogwheelX <= mouseX && mouseX <= cogwheelX + height &&
+                    cogwheelY <= mouseY && mouseY <= cogwheelY + height) {
                     client.setScreen(new EditFeatureConfigScreen(feature, this));
                 } else if (feature instanceof EnableableFeature &&
                              wX1 <= mouseX && mouseX <= wX2 &&

@@ -45,9 +45,7 @@ public class FloatConfigEntry implements ConfigEntry<Float> {
                     public void setBooleanValue(int id, boolean value) {}
 
                     @Override
-                    public void setFloatValue(int id, float value) {
-                        feature.setConfigValue(FloatConfigEntry.this, value);
-                    }
+                    public void setFloatValue(int id, float value) {}
 
                     @Override
                     public void setStringValue(int id, String text) {}
@@ -57,6 +55,12 @@ public class FloatConfigEntry implements ConfigEntry<Float> {
                 text.apply(value),
                 0, 1, value,
                 (id, label, sliderValue) -> text.apply(sliderValue)
-        );
+        ) {
+            @Override
+            public void mouseReleased(int i, int j) {
+                super.mouseReleased(i, j);
+                feature.setConfigValue(FloatConfigEntry.this, getSliderValue());
+            }
+        };
     }
 }
