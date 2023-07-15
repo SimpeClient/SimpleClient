@@ -16,6 +16,9 @@
     "feature.old_animations.BiPedModelMixin",
     "feature.old_animations.HeldItemRendererMixin",
     "feature.old_animations.ItemFeatureRendererMixin",
+    "feature.perspective.CameraMixin",
+    "feature.perspective.EntityRenderDispatcherMixin",
+    "feature.perspective.GameRendererMixin",
     "feature.pvp_improvements.LivingEntityMixin",
     "feature.pvp_improvements.MinecraftClientMixin",
     "feature.zoom.GameRendererMixin"

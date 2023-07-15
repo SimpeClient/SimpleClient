@@ -21,6 +21,7 @@ public class FeatureManagerImpl extends FeatureManager {
         addFeature(new Lowfire());
         addFeature(new Motionblur());
         addFeature(new OldAnimations());
+        addFeature(new Perspective());
         addFeature(new Ping());
         addFeature(new PvPImprovements());
         addFeature(new Zoom());
