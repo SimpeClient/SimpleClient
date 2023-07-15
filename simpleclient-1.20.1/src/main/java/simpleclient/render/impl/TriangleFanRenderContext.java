@@ -20,7 +20,6 @@ public class TriangleFanRenderContext extends RenderContext {
 	@Override
 	public void begin() {
 		super.begin();
-
 		this.bufferBuilder.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
 	}
 
@@ -37,8 +36,8 @@ public class TriangleFanRenderContext extends RenderContext {
 				.endVertex();
 		for (float i = startAngle; i <= endAngle; i += step) {
 			this.bufferBuilder
-					.vertex(matrices, x + (float) (Mth.sin(i * (float) Math.PI / 180.F) * radius),
-							y + (float) (Mth.cos(i * (float) Math.PI / 180.F) * radius), RenderContext.ZERO_Z_LAYER)
+					.vertex(matrices, x + (Mth.sin(i * (float) Math.PI / 180.F) * radius),
+							y + (Mth.cos(i * (float) Math.PI / 180.F) * radius), RenderContext.ZERO_Z_LAYER)
 					.color(red, green, blue, alpha).endVertex();
 		}
 	}

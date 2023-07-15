@@ -28,6 +28,7 @@ public class FeatureManagerImpl extends FeatureManager {
         addFeature(new PerformanceBoost());
         addFeature(new Perspective());
         addFeature(new Ping());
+        addFeature(new PvPImprovements());
         addFeature(new Zoom());
         super.init();
     }

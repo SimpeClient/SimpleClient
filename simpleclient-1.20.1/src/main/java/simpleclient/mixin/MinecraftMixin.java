@@ -20,7 +20,6 @@ import simpleclient.SimpleClient;
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
     @Shadow @Final private VanillaPackResources vanillaPackResources;
-
     @Shadow @Final private Window window;
 
     @Inject(at = @At("HEAD"), method = "createTitle", cancellable = true)

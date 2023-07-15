@@ -1,0 +1,29 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "simpleclient.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "GuiMixin",
+    "MinecraftClientMixin",
+    "TitleScreenMixin",
+    "feature.fullbright.MinecraftClientMixin",
+    "feature.lowfire.HeldItemRendererMixin",
+    "feature.motionblur.MinecraftClientMixin",
+    "feature.motionblur.ReloadableResourceManagerImplMixin",
+    "feature.old_animations.BiPedModelMixin",
+    "feature.old_animations.HeldItemRendererMixin",
+    "feature.old_animations.ItemFeatureRendererMixin",
+    "feature.perspective.CameraMixin",
+    "feature.perspective.EntityRenderDispatcherMixin",
+    "feature.perspective.GameRendererMixin",
+    "feature.pvp_improvements.LivingEntityMixin",
+    "feature.pvp_improvements.MinecraftClientMixin",
+    "feature.zoom.GameRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

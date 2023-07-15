@@ -18,13 +18,14 @@ public class FeatureManager {
     public void init() {
         SimpleClient.LOGGER.info("Features:");
         for (FeatureType type : FeatureType.values()) {
-            if (features.stream().filter(f -> f.getType() == type).findAny().isPresent()) {
+            if (features.stream().anyMatch(f -> f.getType() == type)) {
                 SimpleClient.LOGGER.info("- " + type.getName());
             }
         }
         SimpleClient.LOGGER.info("Missing Features:");
         for (FeatureType type : FeatureType.values()) {
-            if (!features.stream().filter(f -> f.getType() == type).findAny().isPresent()) {
+            if (type.getAvailableMinecraftVersions().contains(SimpleClient.MINECRAFT_VERSION) &&
+                    features.stream().noneMatch(f -> f.getType() == type)) {
                 SimpleClient.LOGGER.info("- " + type.getName());
             }
         }

@@ -1,10 +1,11 @@
 package simpleclient.text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Text {
-    private Style style;
-    private List<Text> children;
+    private Style style = new Style();
+    private List<Text> children = new ArrayList<>();
 
     public Style getStyle() {
         return style;
