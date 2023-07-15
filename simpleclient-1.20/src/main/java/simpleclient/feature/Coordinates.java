@@ -19,7 +19,7 @@ public class Coordinates extends DraggableTextFeature {
 
     @Override
     public String valueForParameter(String parameter) {
-        if (parameter.equals(this.parameter)) return "" + (float) (int) (coordinateSupplier.get() * 100) / 100;
+        if (parameter.equals(this.parameter)) return String.valueOf((float) (int) (coordinateSupplier.get() * 100) / 100);
         else return "";
     }
 

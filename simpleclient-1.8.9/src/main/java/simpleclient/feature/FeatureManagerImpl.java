@@ -2,6 +2,7 @@ package simpleclient.feature;
 
 import net.legacyfabric.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.legacyfabric.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import simpleclient.gui.EditFeaturesScreen;
@@ -16,6 +17,9 @@ public class FeatureManagerImpl extends FeatureManager {
             }
         });
         addFeature(new Biome());
+        addFeature(new Coordinates(FeatureType.COORDINATES_X, "x", "X", () -> MinecraftClient.getInstance().player.x));
+        addFeature(new Coordinates(FeatureType.COORDINATES_Y, "y", "Y", () -> MinecraftClient.getInstance().player.y));
+        addFeature(new Coordinates(FeatureType.COORDINATES_Z, "z", "Z", () -> MinecraftClient.getInstance().player.z));
         addFeature(new FPS());
         addFeature(new Fullbright());
         addFeature(new Lowfire());
