@@ -13,6 +13,9 @@
     "feature.lowfire.HeldItemRendererMixin",
     "feature.motionblur.MinecraftClientMixin",
     "feature.motionblur.ReloadableResourceManagerImplMixin",
+    "feature.old_animations.BiPedModelMixin",
+    "feature.old_animations.HeldItemRendererMixin",
+    "feature.old_animations.ItemFeatureRendererMixin",
     "feature.pvp_improvements.LivingEntityMixin",
     "feature.pvp_improvements.MinecraftClientMixin",
     "feature.zoom.GameRendererMixin"
