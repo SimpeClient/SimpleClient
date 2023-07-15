@@ -22,7 +22,8 @@ githubRelease {
     draft false
     prerelease version.startsWith('0') || version.endsWith('-snapshot') || version.endsWith('-alpha') || version.endsWith('-beta') || version.endsWith('-dev')
     var assets = []
-    [project('simpleclient-1.19.4'),
+    [project('simpleclient-1.8.9'),
+     project('simpleclient-1.19.4'),
      project('simpleclient-1.20'),
      project('simpleclient-1.20.1')].forEach {
         assets.add it.file("build/libs/${it.name}-${version}.jar")
