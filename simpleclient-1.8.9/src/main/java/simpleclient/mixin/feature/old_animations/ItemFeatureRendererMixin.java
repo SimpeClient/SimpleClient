@@ -34,8 +34,8 @@ public class ItemFeatureRendererMixin {
             GlStateManager.scale(f, f, f);
         }
         Label_0327:
-        if (entity instanceof PlayerEntity player) {
-            if (player.isUsingItem()) {
+        if (entity instanceof PlayerEntity) {
+            if (((PlayerEntity) entity).isUsingItem()) {
                 if (entity.isSneaking()) {
                     ((BiPedModel) entityRenderer.getModel()).setArmAngle(0.0325f);
                     GlStateManager.scale(1.05f, 1.05f, 1.05f);
@@ -48,17 +48,17 @@ public class ItemFeatureRendererMixin {
                     GlStateManager.rotate(-24405.0f, 137290.0f, -2009900.0f, -2654900.0f);
                 }
             } else ((BiPedModel) entityRenderer.getModel()).setArmAngle(0.0625f);
-            if (!player.isUsingItem()) {
+            if (!((PlayerEntity) entity).isUsingItem()) {
                 GlStateManager.translate(-0.0855f, 0.4775f, 0.1585f);
                 GlStateManager.rotate(-19.0f, 20.0f, 0.0f, -6.0f);
                 break Label_0327;
             }
-            if (player.isUsingItem()) GlStateManager.translate(-0.0625f, 0.4375f, 0.0625f);
+            if (((PlayerEntity) entity).isUsingItem()) GlStateManager.translate(-0.0625f, 0.4375f, 0.0625f);
         } else {
             ((BiPedModel) entityRenderer.getModel()).setArmAngle(0.0625f);
             GlStateManager.translate(-0.0625f, 0.4375f, 0.0625f);
         }
-        if (entity instanceof PlayerEntity player && player.fishHook != null) itemStack = new ItemStack(Items.FISHING_ROD, 0);
+        if (entity instanceof PlayerEntity && ((PlayerEntity) entity).fishHook != null) itemStack = new ItemStack(Items.FISHING_ROD, 0);
         Item item = itemStack.getItem();
         MinecraftClient minecraft = MinecraftClient.getInstance();
         if (item instanceof BlockItem && Block.getBlockFromItem(item).getBlockType() == 2) {

@@ -28,12 +28,12 @@ public abstract class MinecraftClientMixin {
 
     @Shadow protected abstract ByteBuffer readInputStreamAsImage(InputStream inputStream) throws IOException;
 
-    @ModifyArg(at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V", ordinal = 0), method = "setPixelFormat")
+    @ModifyArg(at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V"), method = "setPixelFormat")
     public String setTitle(String newTitle) {
         return "Minecraft 1.8.9 | SimpleClient " + SimpleClient.VERSION;
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "setDefaultIcon", cancellable = true)
+    /*@Inject(at = @At(value = "HEAD"), method = "setDefaultIcon", cancellable = true)
     public void setDefaultIcon(CallbackInfo ci) {
         ci.cancel();
         Util.OperatingSystem operatingSystem = Util.getOperatingSystem();
@@ -56,5 +56,5 @@ public abstract class MinecraftClientMixin {
                 IOUtils.closeQuietly(inputStream2);
             }
         }
-    }
+    }*/
 }

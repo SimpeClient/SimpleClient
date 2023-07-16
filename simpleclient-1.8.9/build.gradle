@@ -3,8 +3,8 @@ plugins {
     id 'fabric-loom' version '1.2-SNAPSHOT'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     maven { url = "https://repo.legacyfabric.net/repository/legacyfabric/" }
@@ -41,5 +41,5 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release.set 17
+    it.options.release.set 8
 }

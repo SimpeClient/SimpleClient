@@ -30,14 +30,14 @@ public class EditFeaturesScreen extends Screen {
         ItemRendererAdapter itemRenderer = new ItemRendererAdapterImpl();
         // Render Renderable Features
         for (Feature feature : FeatureManager.INSTANCE.getFeatures()) {
-            if (feature instanceof RenderableFeature rf && rf.isEnabled()) {
-                rf.renderDummy(textRenderer, itemRenderer, width, height);
-                if (rf instanceof DraggableFeature df) {
-                    final float xPos = df.getXPos(width);
-                    final float yPos = df.getYPos(height);
+            if (feature instanceof RenderableFeature && ((RenderableFeature) feature).isEnabled()) {
+                ((RenderableFeature) feature).renderDummy(textRenderer, itemRenderer, width, height);
+                if (feature instanceof DraggableFeature) {
+                    final float xPos = ((DraggableFeature) feature).getXPos(width);
+                    final float yPos = ((DraggableFeature) feature).getYPos(height);
                     DrawUtil.border(xPos - 1, yPos - 1,
-                            xPos + df.getWidth(textRenderer, itemRenderer, width, height) + 1,
-                            yPos + df.getHeight(textRenderer, itemRenderer, width, height) + 1, 1.f, 1.f, 0xFFAAAAAA);
+                            xPos + ((DraggableFeature) feature).getWidth(textRenderer, itemRenderer, width, height) + 1,
+                            yPos + ((DraggableFeature) feature).getHeight(textRenderer, itemRenderer, width, height) + 1, 1.f, 1.f, 0xFFAAAAAA);
                 }
             }
         }
@@ -58,12 +58,12 @@ public class EditFeaturesScreen extends Screen {
             float corners = (wY2 - wY1) / 8;
             DrawUtil.roundedRectangle(wX1, wY1 + this.scroll, wX2, wY2 + this.scroll, corners, 0xFF555555);
             // Enable Button
-            if (feature instanceof EnableableFeature ef) {
+            if (feature instanceof EnableableFeature) {
                 float height = wSize / 6;
                 DrawUtil.stadium(wX1 + wSize / 10, scroll + wY2 - wSize / 10 - wSize / 3 / 2,
                         wX1 + wSize / 10 + wSize / 3, scroll + wY2 - wSize / 10,
-                        ef.isEnabled() ? 0xFF00FF00 : 0xFFFF0000);
-                if (ef.isEnabled()) {
+                        ((EnableableFeature) feature).isEnabled() ? 0xFF00FF00 : 0xFFFF0000);
+                if (((EnableableFeature) feature).isEnabled()) {
                     DrawUtil.circle(wX1 + wSize / 10 + wSize / 3 - height / 2,
                             scroll + wY2 - wSize / 10 - height / 2, height * 2 / 5, 0xFF000000);
                 } else {

@@ -2,6 +2,9 @@ plugins {
     id 'java'
 }
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 repositories {
     mavenCentral()
     maven { url = "https://jitpack.io"}
@@ -15,5 +18,5 @@ dependencies {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    it.options.release.set 8
 }
