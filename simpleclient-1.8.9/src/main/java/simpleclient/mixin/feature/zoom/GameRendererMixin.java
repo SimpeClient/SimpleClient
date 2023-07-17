@@ -10,7 +10,7 @@ import simpleclient.feature.Zoom;
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
     @Inject(at = @At(value = "RETURN"), method = "getFov", cancellable = true)
-    public void getFov(float partialTicks, boolean changingFov, CallbackInfoReturnable<Double> cir) {
-        if (Zoom.ACTIVE) cir.setReturnValue((double) (cir.getReturnValue() * (1 - Zoom.ZOOM_FACTOR)));
+    public void getFov(float partialTicks, boolean changingFov, CallbackInfoReturnable<Float> cir) {
+        if (Zoom.ACTIVE) cir.setReturnValue(cir.getReturnValue() * (1 - Zoom.ZOOM_FACTOR));
     }
 }
