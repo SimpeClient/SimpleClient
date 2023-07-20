@@ -48,7 +48,7 @@ public class SimpleClient implements ClientModInitializer {
                 if (DiscordRPC.INSTANCE.getIngameTimestamp() == null) DiscordRPC.INSTANCE.setIngameTimestamp(Instant.now());
                 if (mc.getSingleplayerServer() == null) {
                     InetSocketAddress address = (InetSocketAddress) mc.getConnection().getConnection().getRemoteAddress();
-                    return DiscordRPC.activity("Multiplayer", address.getHostName(), DiscordRPC.INSTANCE.getIngameTimestamp());
+                    return DiscordRPC.activity("Multiplayer", address.getHostString(), DiscordRPC.INSTANCE.getIngameTimestamp());
                 } else {
                     String gamemode = mc.player.isCreative() ? "Creative Mode" : mc.player.isSpectator() ? "Spectator Mode" : "Survival Mode";
                     return DiscordRPC.activity("Singleplayer", gamemode, DiscordRPC.INSTANCE.getIngameTimestamp());
