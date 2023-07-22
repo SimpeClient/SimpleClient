@@ -46,9 +46,8 @@ public class DraggableTextFeature extends DraggableFeature {
             JsonObject object = element.getAsJsonObject();
             if (!object.has("type")) continue;
             if (!object.has("value")) continue;
-            if (object.has("style")) {
-                if (!object.get("style").isJsonObject()) object.remove("style");
-            } else object.add("style", new JsonObject());
+            if (object.has("style") && !object.get("style").isJsonObject()) object.remove("style");
+            if (!object.has("style")) object.add("style", new JsonObject());
             Style style = Style.deserializeJson(object.get("style").getAsJsonObject());
             Text text = null;
             if (object.get("type").getAsString().equals("text")) {
@@ -73,9 +72,8 @@ public class DraggableTextFeature extends DraggableFeature {
             if (!object.has("value")) continue;
             if (!object.get("value").isJsonPrimitive()) continue;
             if (!object.get("value").getAsJsonPrimitive().isString()) continue;
-            if (object.has("style")) {
-                if (!object.get("style").isJsonObject()) object.remove("style");
-            } else object.add("style", new JsonObject());
+            if (object.has("style") && !object.get("style").isJsonObject()) object.remove("style");
+            if (!object.has("style")) object.add("style", new JsonObject());
             Style style = Style.deserializeJson(object.get("style").getAsJsonObject());
             Text text = null;
             if (object.get("type").getAsString().equals("text")) {

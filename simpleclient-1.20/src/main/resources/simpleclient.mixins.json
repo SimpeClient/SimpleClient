@@ -6,18 +6,20 @@
   "mixins": [
   ],
   "client": [
+    "GuiMixin",
+    "IconSetMixin",
+    "MinecraftMixin",
+    "TitleScreenMixin",
     "feature.fullbright.OptionsMixin",
     "feature.lowfire.ScreenEffectRendererMixin",
     "feature.perspective.CameraMixin",
     "feature.perspective.MouseMixin",
+    "feature.pvp_improvements.MinecraftMixin",
     "feature.zoom.GameRendererMixin",
     "performance.LevelRendererMixin",
     "performance.OptionsMixin",
     "performance.SharedConstantsMixin",
-    "GuiMixin",
-    "IconSetMixin",
-    "MinecraftMixin",
-    "TitleScreenMixin"
+    "tnt_timer.TntRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

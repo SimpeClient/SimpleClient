@@ -1,28 +1,120 @@
 package simpleclient.util;
 
-import com.mojang.math.Axis;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
+import simpleclient.render.RenderContext;
 
 public class DrawUtil {
-    public static void drawCircle(GuiGraphics guiGraphics, int x, int y, int radius, float degrees, float rotation, int color) {
-        float detail = 1.1F;
-        int i = (int) (2 * Math.PI * radius * detail);
-        for (int j = 0; j < i; j++) {
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate(x, y, 0);
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().rotateAround(Axis.ZP.rotationDegrees(rotation + degrees / i * j), 0, 0, 0);
-            guiGraphics.vLine(0, -radius - 1, 0, color);
-            guiGraphics.pose().popPose();
-            guiGraphics.pose().popPose();
-        }
-    }
 
-    public static void drawCircle(GuiGraphics guiGraphics, int x, int y, int radius, float degrees, int color) {
-        drawCircle(guiGraphics, x, y, radius, degrees, 0.0F, color);
-    }
+	/*
+	 * https://en.wikipedia.org/wiki/Stadium_(geometry)
+	 */
+	public static void stadium(final GuiGraphics guiGraphics, final float wX1, final float wY1, final float wX2,
+			final float wY2, final int color) {
+		final PoseStack poseStack = guiGraphics.pose();
 
-    public static void drawCircle(GuiGraphics guiGraphics, int x, int y, int radius, int color) {
-        drawCircle(guiGraphics, x, y, radius, 360.0F, color);
-    }
+		final float width = wX2 - wX1;
+		final float height = wY2 - wY1;
+
+		if (width <= height) {
+			throw new RuntimeException("Width must be higher than height.");
+		}
+
+		final float circleRadius = height / 2;
+
+		DrawUtil.rectangle(guiGraphics, wX1 + circleRadius, wY1, wX2 - circleRadius, wY2, color);
+
+		RenderContext.triangleFan(context -> {
+			// Left
+			context.circle(poseStack, wX1 + circleRadius, wY2 - circleRadius, circleRadius, 180.F, 360.F, 1.f, color);
+
+			// Right
+			context.circle(poseStack, wX2 - circleRadius, wY2 - circleRadius, circleRadius, 0.F, 180.F, 1.F, color);
+		});
+	}
+
+	public static void circle(GuiGraphics guiGraphics, final float x, final float y, final float radius,
+			final int color) {
+		DrawUtil.circle(guiGraphics, x, y, radius, 0.F, 360.F, 1.F, color);
+	}
+
+	public static void circle(GuiGraphics guiGraphics, final float x, final float y, final float radius,
+			final float startAngle, final float endAngle, final int color) {
+		DrawUtil.circle(guiGraphics, x, y, radius, startAngle, endAngle, 1.F, color);
+	}
+
+	public static void circle(final GuiGraphics guiGraphics, final float x, final float y, final float radius,
+			final float startAngle, final float endAngle, final float step, final int color) {
+		RenderContext.triangleFan(
+				context -> context.circle(guiGraphics.pose(), x, y, radius, startAngle, endAngle, step, color));
+	}
+
+	public static void rectangle(final GuiGraphics guiGraphics, float left, float top, float right, float bottom,
+			final int color) {
+		RenderContext.quads(context -> context.rectangle(guiGraphics.pose(), left, top, right, bottom, color));
+	}
+
+	public static void border(final GuiGraphics guiGraphics, final float left, final float top, final float right,
+			final float bottom, final float borderWidth, final float borderHeight, final int color) {
+		final PoseStack poseStack = guiGraphics.pose();
+
+		RenderContext.quads(context -> {
+			// Top
+			context.rectangle(poseStack, left + borderWidth, top, right - borderWidth, top + borderHeight, color);
+
+			// Right
+			context.rectangle(poseStack, right - borderWidth, top, right, bottom, color);
+
+			// Bottom
+			context.rectangle(poseStack, left + borderWidth, bottom - borderHeight, right - borderWidth, bottom, color);
+
+			// Left
+			context.rectangle(poseStack, left, top, left + borderWidth, bottom, color);
+		});
+	}
+
+	public static void roundedRectangle(final GuiGraphics guiGraphics, final float left, final float top,
+			final float right, final float bottom, final float circleRadius, final int color) {
+		final PoseStack poseStack = guiGraphics.pose();
+		
+		RenderContext.triangleFan(context -> {
+			// Top-Left
+			context.circle(poseStack, left + circleRadius, top + circleRadius, circleRadius, 180.F, 270.F, 1.f,
+					color);
+
+			// Top-Right
+			context.circle(poseStack, right - circleRadius, top + circleRadius, circleRadius, 90.F, 180.F, 1.f,
+					color);
+
+			// Bottom-Left
+			context.circle(poseStack, left + circleRadius, bottom - circleRadius, circleRadius, 270.F, 360.F,
+					1.f, color);
+
+			// Bottom-Right
+			context.circle(poseStack, right - circleRadius, bottom - circleRadius, circleRadius, 0.F, 90.F,
+					1.f, color);
+		});
+
+		RenderContext.quads(context -> {
+			// Middle
+			context.rectangle(poseStack, left + circleRadius, top + circleRadius, right - circleRadius,
+					bottom - circleRadius, color);
+
+			// Top
+			context.rectangle(poseStack, left + circleRadius, top, right - circleRadius, top + circleRadius,
+					color);
+
+			// Right
+			context.rectangle(poseStack, right - circleRadius, top + circleRadius, right,
+					bottom - circleRadius, color);
+
+			// Bottom
+			context.rectangle(poseStack, left + circleRadius, bottom - circleRadius, right - circleRadius,
+					bottom, color);
+
+			// Left
+			context.rectangle(poseStack, left, top + circleRadius, left + circleRadius, bottom - circleRadius,
+					color);
+		});
+	}
 }

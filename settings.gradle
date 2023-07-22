@@ -5,8 +5,9 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = 'simpleclient'
+rootProject.name = 'SimpleClient'
 include 'simpleclient-core'
+include 'simpleclient-1.8.9'
 include 'simpleclient-1.19.4'
 include 'simpleclient-1.20'
 include 'simpleclient-1.20.1'

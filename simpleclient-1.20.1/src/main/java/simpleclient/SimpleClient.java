@@ -11,6 +11,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import simpleclient.adapter.LoggerAdapter;
 import simpleclient.adapter.TranslationAdapter;
 import simpleclient.adapter.TranslationAdapterImpl;
 import simpleclient.feature.FeatureManager;
@@ -21,8 +22,26 @@ import java.net.InetSocketAddress;
 import java.time.Instant;
 
 public class SimpleClient implements ClientModInitializer {
-    public static final Logger LOGGER = LoggerFactory.getLogger("simpleclient");
+    public static final LoggerAdapter LOGGER = new LoggerAdapter() {
+        Logger logger = LoggerFactory.getLogger("SimpleClient");
+
+        @Override
+        public void info(String message, Object... args) {
+            logger.info(message, args);
+        }
+
+        @Override
+        public void error(String message, Object... args) {
+            logger.error(message, args);
+        }
+
+        @Override
+        public void debug(String message, Object... args) {
+            logger.debug(message, args);
+        }
+    };
     public static String VERSION = "unknown";
+    public static String MINECRAFT_VERSION = "1.20.1";
 
     @Override
     public void onInitializeClient() {
@@ -34,8 +53,7 @@ public class SimpleClient implements ClientModInitializer {
             if (mc.player != null && mc.level != null) {
                 if (DiscordRPC.INSTANCE.getIngameTimestamp() == null) DiscordRPC.INSTANCE.setIngameTimestamp(Instant.now());
                 if (mc.getSingleplayerServer() == null) {
-                    InetSocketAddress address = (InetSocketAddress) mc.getConnection().getConnection().getRemoteAddress();
-                    return DiscordRPC.activity("Multiplayer", address.getHostName(), DiscordRPC.INSTANCE.getIngameTimestamp());
+                    return DiscordRPC.activity("Multiplayer", mc.getCurrentServer().ip, DiscordRPC.INSTANCE.getIngameTimestamp());
                 } else {
                     String gamemode = mc.player.isCreative() ? "Creative Mode" : mc.player.isSpectator() ? "Spectator Mode" : "Survival Mode";
                     return DiscordRPC.activity("Singleplayer", gamemode, DiscordRPC.INSTANCE.getIngameTimestamp());

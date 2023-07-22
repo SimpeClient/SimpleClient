@@ -21,10 +21,12 @@
     "feature.lowfire.ScreenEffectRendererMixin",
     "feature.perspective.CameraMixin",
     "feature.perspective.MouseMixin",
+    "feature.pvp_improvements.MinecraftMixin",
     "feature.zoom.GameRendererMixin",
     "performance.LevelRendererMixin",
     "performance.OptionsMixin",
-    "performance.SharedConstantsMixin"
+    "performance.SharedConstantsMixin",
+    "tnt_timer.TntRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

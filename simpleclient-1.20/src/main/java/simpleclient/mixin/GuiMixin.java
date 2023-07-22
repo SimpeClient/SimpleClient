@@ -24,7 +24,6 @@ import simpleclient.gui.EditFeaturesScreen;
 @Mixin(Gui.class)
 public abstract class GuiMixin {
     @Shadow public abstract Font getFont();
-
     @Shadow @Final private Minecraft minecraft;
 
     @Inject(at = @At("TAIL"), method = "render")

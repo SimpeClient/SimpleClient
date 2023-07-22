@@ -29,7 +29,7 @@ public class DraggableFeature extends RenderableFeature {
 
     public double getX() {
         JsonObject data = getData();
-       if (!data.has("x")) data.addProperty("x", getDefaultX());
+        if (!data.has("x")) data.addProperty("x", getDefaultX());
         return data.get("x").getAsDouble();
     }
 

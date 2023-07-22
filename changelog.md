@@ -1,2 +1,2 @@
 ## SimpleClient %version%
-- Better GUI
+- Fixed server IP in Discord integration

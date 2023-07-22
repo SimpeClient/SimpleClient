@@ -1,23 +1,22 @@
 package simpleclient.feature.config;
 
 import com.google.gson.JsonObject;
-import net.minecraft.client.gui.components.AbstractOptionSliderButton;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import simpleclient.adapter.TextAdapter;
 import simpleclient.feature.Feature;
+import simpleclient.text.Text;
 
 import java.util.function.Function;
 
 public class FloatConfigEntry implements ConfigEntry<Float> {
     private String key;
     private float defaultValue;
-    private Component displayText;
-    private Function<Float, Component> valueText;
+    private Text displayText;
+    private Function<Float, Text> valueText;
 
-    public FloatConfigEntry(String key, Component displayText, float defaultValue, Function<Float, Component> valueText) {
+    public FloatConfigEntry(String key, Text displayText, float defaultValue, Function<Float, Text> valueText) {
         this.key = key;
         this.defaultValue = defaultValue;
         this.displayText = displayText;
@@ -37,7 +36,7 @@ public class FloatConfigEntry implements ConfigEntry<Float> {
 
     @Override
     public AbstractWidget createWidget(Feature feature) {
-        Function<Float, Component> text = value -> displayText.copy().append(": ").append(valueText.apply(value));
+        Function<Float, Component> text = value -> TextAdapter.adapt(displayText).copy().append(": ").append(TextAdapter.adapt(valueText.apply(value)));
         float value = feature.getConfigValue(this);
         return new AbstractSliderButton(0, 0, 200, 20, text.apply(value), value) {
             @Override

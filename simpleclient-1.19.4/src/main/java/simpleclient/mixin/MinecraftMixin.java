@@ -38,7 +38,7 @@ public abstract class MinecraftMixin {
     @Inject(at = @At("TAIL"), method = "<init>")
     public void init(GameConfig gameConfig, CallbackInfo ci) {
         try {
-            window.setIcon(getIconFile("icons", "icon_16x16.png"), getIconFile("icons", "icon_32x32.png"));
+            window.setIcon(getIconFile("icons", "icon_32x32.png"), getIconFile("icons", "icon_32x32.png"));
         } catch (Exception e) {e.printStackTrace();}
     }
 
