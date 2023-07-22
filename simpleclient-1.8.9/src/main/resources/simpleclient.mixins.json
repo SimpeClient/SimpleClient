@@ -21,6 +21,7 @@
     "feature.perspective.GameRendererMixin",
     "feature.pvp_improvements.LivingEntityMixin",
     "feature.pvp_improvements.MinecraftClientMixin",
+    "feature.tnt_timer.TntEntityRendererMixin",
     "feature.zoom.GameRendererMixin"
   ],
   "injectors": {

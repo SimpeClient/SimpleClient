@@ -14,6 +14,7 @@
     "feature.perspective.CameraMixin",
     "feature.perspective.MouseMixin",
     "feature.pvp_improvements.MinecraftMixin",
+    "feature.tnt_timer.TntRendererMixin",
     "feature.zoom.GameRendererMixin",
     "performance.LevelRendererMixin",
     "performance.OptionsMixin",

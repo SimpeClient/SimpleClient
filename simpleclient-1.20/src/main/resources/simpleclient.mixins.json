@@ -18,7 +18,8 @@
     "feature.zoom.GameRendererMixin",
     "performance.LevelRendererMixin",
     "performance.OptionsMixin",
-    "performance.SharedConstantsMixin"
+    "performance.SharedConstantsMixin",
+    "tnt_timer.TntRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

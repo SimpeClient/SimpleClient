@@ -1,33 +1,44 @@
 package simpleclient.feature;
 
-import com.google.common.collect.Lists;
-
-import java.util.List;
+import java.util.Arrays;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public enum FeatureType {
-    BIOME("biome", "Biome", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    COORDINATES_X("coords_x", "Coordinates - X", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    COORDINATES_Y("coords_y", "Coordinates - Y", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    COORDINATES_Z("coords_z", "Coordinates - Z", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    FPS("fps", "FPS", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    FULLBRIGHT("fullbright", "Fullbright", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    LOWFIRE("lowfire", "Lowfire", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    MOTIONBLUR("motionblur", "Motionblur", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    PERFORMANCE_BOOST("performance_boost", "Performance Boost", "1.19.4", "1.20", "1.20.1"),
-    PERSPECTIVE("perspective", "Perspective", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    PING("ping", "Ping", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    PVP_IMPROVEMENTS("pvp_improvements", "PvP Improvements", "1.8.9", "1.19.4", "1.20", "1.20.1"),
-    OLD_ANIMATIONS("old_animations", "Old Animations", "1.8.9"),
-    ZOOM("zoom", "Zoom", "1.8.9", "1.19.4", "1.20", "1.20.1");
+    BIOME("biome", "Biome"),
+    COORDINATES_X("coords_x", "Coordinates - X"),
+    COORDINATES_Y("coords_y", "Coordinates - Y"),
+    COORDINATES_Z("coords_z", "Coordinates - Z"),
+    FPS("fps", "FPS"),
+    FULLBRIGHT("fullbright", "Fullbright"),
+    LOWFIRE("lowfire", "Lowfire"),
+    MOTIONBLUR("motionblur", "Motionblur"),
+    OLD_ANIMATIONS("old_animations", "Old Animations", onlyOn("1.8.9")),
+    PERFORMANCE_BOOST("performance_boost", "Performance Boost", notOn("1.8.9")),
+    PERSPECTIVE("perspective", "Perspective"),
+    PING("ping", "Ping"),
+    PVP_IMPROVEMENTS("pvp_improvements", "PvP Improvements"),
+    TNT_TIMER("tnt_timer", "TNT Timer"),
+    ZOOM("zoom", "Zoom");
 
     private String id;
     private String name;
-    private List<String> availableMinecraftVersions;
+    private Function<String, Boolean> availableMinecraftVersions;
 
-    FeatureType(String id, String name, String... availableMinecraftVersions) {
+    FeatureType(String id, String name) {
         this.id = id;
         this.name = name;
-        this.availableMinecraftVersions = Lists.newArrayList(availableMinecraftVersions);
+        this.availableMinecraftVersions = version -> true;
+    }
+
+    FeatureType(String id, String name, Function<String, Boolean> availableMinecraftVersions) {
+        this.id = id;
+        this.name = name;
+        this.availableMinecraftVersions = availableMinecraftVersions;
+    }
+
+    public boolean isAvailableFor(String minecraftVersion) {
+        return availableMinecraftVersions.apply(minecraftVersion);
     }
 
     public String getId() {
@@ -38,7 +49,11 @@ public enum FeatureType {
         return name;
     }
 
-    public List<String> getAvailableMinecraftVersions() {
-        return availableMinecraftVersions;
+    private static Function<String, Boolean> onlyOn(String... minecraftVersions) {
+        return version -> Arrays.stream(minecraftVersions).anyMatch(Predicate.isEqual(version));
+    }
+
+    private static Function<String, Boolean> notOn(String... minecraftVersions) {
+        return version -> !Arrays.stream(minecraftVersions).anyMatch(Predicate.isEqual(version));
     }
 }
