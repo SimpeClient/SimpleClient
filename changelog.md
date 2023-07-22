@@ -1,2 +1,2 @@
 ## SimpleClient %version%
-- Added TNT Timer
+- Fixed server IP in Discord integration
