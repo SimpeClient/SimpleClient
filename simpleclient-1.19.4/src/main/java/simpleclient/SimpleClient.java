@@ -17,6 +17,7 @@ import simpleclient.adapter.LoggerAdapter;
 import simpleclient.adapter.TranslationAdapter;
 import simpleclient.adapter.TranslationAdapterImpl;
 import simpleclient.feature.FeatureManager;
+import simpleclient.feature.LegacyPvP;
 import simpleclient.util.DiscordRPC;
 
 import java.net.InetSocketAddress;
@@ -65,6 +66,7 @@ public class SimpleClient implements ClientModInitializer {
             }
         });
         ClientLifecycleEvents.CLIENT_STOPPING.register(client -> DiscordRPC.INSTANCE.close());
+        LegacyPvP.init();
     }
 
     public String loadVersion() {
