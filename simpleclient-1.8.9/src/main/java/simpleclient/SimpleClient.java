@@ -48,7 +48,7 @@ public class SimpleClient implements ClientModInitializer {
             if (mc.player != null && mc.world != null) {
                 if (DiscordRPC.INSTANCE.getIngameTimestamp() == null) DiscordRPC.INSTANCE.setIngameTimestamp(Instant.now());
                 if (mc.getServer() == null) {;
-                    return DiscordRPC.activity("Multiplayer", mc.getCurrentServerEntry().address, DiscordRPC.INSTANCE.getIngameTimestamp());
+                    return DiscordRPC.activity("Multiplayer", mc.getCurrentServerEntry().address.toLowerCase(), DiscordRPC.INSTANCE.getIngameTimestamp());
                 } else {
                     PlayerListEntry entry = mc.getNetworkHandler().getPlayerListEntry(mc.player.getGameProfile().getId());
                     LevelInfo.GameMode mode = entry.getGameMode();

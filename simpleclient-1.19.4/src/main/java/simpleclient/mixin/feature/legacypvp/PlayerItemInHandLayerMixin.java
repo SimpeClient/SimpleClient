@@ -75,7 +75,7 @@ public class PlayerItemInHandLayerMixin<T extends Player, M extends EntityModel<
 
     @Unique
     private void transformInverse(LivingEntity entity, ItemStack itemStack, ItemDisplayContext context, PoseStack poseStack, boolean leftHand) {
-        BakedModel model = Minecraft.getInstance().getItemRenderer().getModel(itemStack, entity.level(), entity, 0);
+        BakedModel model = Minecraft.getInstance().getItemRenderer().getModel(itemStack, entity.level, entity, 0);
         transformInverse(model.getTransforms().getTransform(context), leftHand, poseStack);
     }
 
