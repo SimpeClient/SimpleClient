@@ -19,7 +19,7 @@
     "performance.LevelRendererMixin",
     "performance.OptionsMixin",
     "performance.SharedConstantsMixin",
-    "tnt_timer.TntRendererMixin"
+    "feature.tnt_timer.TntRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

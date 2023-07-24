@@ -1,4 +1,4 @@
-package simpleclient.mixin.legacypvp;
+package simpleclient.mixin.feature.legacypvp;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;

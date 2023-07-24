@@ -1,4 +1,4 @@
-package simpleclient.mixin.legacypvp;
+package simpleclient.mixin.feature.legacypvp;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

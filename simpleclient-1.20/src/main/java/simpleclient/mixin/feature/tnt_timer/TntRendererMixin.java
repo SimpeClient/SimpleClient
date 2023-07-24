@@ -1,4 +1,4 @@
-package simpleclient.mixin.tnt_timer;
+package simpleclient.mixin.feature.tnt_timer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
