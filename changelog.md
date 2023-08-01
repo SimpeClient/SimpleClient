@@ -1,2 +1,2 @@
 ## SimpleClient %version%
-- Fixed Legacy PvP 
+- Added notifications for legacypvp
