@@ -3,15 +3,11 @@ package simpleclient.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import org.joml.AxisAngle4d;
-import org.joml.AxisAngle4f;
-import org.joml.Quaternionf;
 import simpleclient.adapter.ItemRendererAdapter;
 import simpleclient.adapter.ItemRendererAdapterImpl;
 import simpleclient.adapter.TextRendererAdapter;
@@ -20,7 +16,6 @@ import simpleclient.feature.*;
 import simpleclient.text.Text;
 import simpleclient.util.DrawUtil;
 
-import java.io.IOException;
 import java.util.List;
 
 public class EditFeaturesScreen extends Screen {
@@ -91,7 +86,7 @@ public class EditFeaturesScreen extends Screen {
                 int cogwheelY = scroll + wY2 - wSize / 10 - wSize / 3 / 2;
                 if (cogwheelX <= mouseX && mouseX <= cogwheelX + h &&
                     cogwheelY <= mouseY && mouseY <= cogwheelY + h) {
-                    float degrees = 360.0F / 400 * ((float) (System.currentTimeMillis() % 4000) / 10);
+                    float degrees = 360.0F / 300 * ((float) (System.currentTimeMillis() % 3000) / 10);
                     poseStack.rotateAround(Axis.ZP.rotationDegrees(degrees), cogwheelX + h / 2, cogwheelY + h / 2, 0.0F);
                 }
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);

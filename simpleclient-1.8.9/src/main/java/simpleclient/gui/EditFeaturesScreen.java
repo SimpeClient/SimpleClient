@@ -77,7 +77,7 @@ public class EditFeaturesScreen extends Screen {
                 float height = wSize / 6;
                 float cogwheelX = wX2 - wSize / 10 - height;
                 float cogwheelY = scroll + wY2 - wSize / 10 - height;
-                float degrees = 360.0F / 400 * ((float) (System.currentTimeMillis() % 4000) / 10);
+                float degrees = 360.0F / 300 * ((float) (System.currentTimeMillis() % 3000) / 10);
                 GlStateManager.translate(cogwheelX + height / 2, cogwheelY + height / 2, 0);
                 // Rotate
                 GlStateManager.pushMatrix();
