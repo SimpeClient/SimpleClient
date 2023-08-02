@@ -15,7 +15,6 @@
     "feature.legacypvp.GuiMixin",
     "feature.legacypvp.HumanoidModelMixin",
     "feature.legacypvp.ItemInHandRendererMixin",
-    "feature.legacypvp.LivingEntityMixin",
     "feature.legacypvp.PlayerItemInHandLayerMixin",
     "feature.legacypvp.PlayerMixin",
     "feature.legacypvp.SwordItemMixin",
