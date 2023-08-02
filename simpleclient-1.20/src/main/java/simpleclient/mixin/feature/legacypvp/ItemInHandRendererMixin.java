@@ -42,7 +42,7 @@ public abstract class ItemInHandRendererMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "renderArmWithItem", cancellable = true)
     public void renderArmWithItem(AbstractClientPlayer player, float partialTicks, float pitch, InteractionHand hand, float swingProgress, ItemStack itemStack, float equipProgress, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, CallbackInfo ci) {
-        if (LegacyPvP.ENABLED && LegacyPvP.BLOCKING && player.getUsedItemHand() == hand) {
+        if (LegacyPvP.ENABLED && LegacyPvP.isBlocking(player) && player.getUsedItemHand() == hand) {
             poseStack.pushPose();
             boolean mainHand = hand == InteractionHand.MAIN_HAND;
             HumanoidArm arm = mainHand ? player.getMainArm() : player.getMainArm().getOpposite();
